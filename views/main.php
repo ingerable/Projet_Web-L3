@@ -14,14 +14,7 @@
 
 <?php
 include 'header.php';
-if(isset($_SESSION['user']))
-{
-	include 'menuCo.php';
-}
-else {
-	include 'menu.php';
-}
-
+include 'menu.php';
 
 if (isset($_SESSION['message'])) {
 	$m = $_SESSION['message'];

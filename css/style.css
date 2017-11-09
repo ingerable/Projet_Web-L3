@@ -98,22 +98,11 @@ footer p {
 
 a {
 	text-decoration: none;
-	color:rgb(200,100,0);
+	color: rgb(240,150,80);
 }
 a:hover {
 	font-weight: 400;
 	text-decoration: underline;
-}
-
-body form a{
-	background-color:rgb(200,100,0);
-	display:inline-block;
-	cursor:pointer;
-	color:white;
-	font-family:Arial;
-	padding:9px 15px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #204a1a;
 }
 
 .message {

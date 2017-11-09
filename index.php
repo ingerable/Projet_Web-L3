@@ -5,7 +5,7 @@ require_once 'global/utils.php';
 require_once 'models/model_base.php';
 require_once 'controllers/controller_base.php';
 
-define('BASEURL', dirname($_SERVER['SCRIPT_NAME']));
+define('BASEURL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
 
 // init DB connection
 try {

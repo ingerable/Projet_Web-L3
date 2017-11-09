@@ -6,9 +6,8 @@ class Controller_Base
 
     }
 
-	// TODO : automatically prefix target with "BASEURL/index.php/"
-    public function redirect($target) {
-        header('Location: ' . $target);
+    public function redirect($target = '') {
+        header('Location: ' . BASEURL . '/index.php/' . $target);
         exit;
     }
 

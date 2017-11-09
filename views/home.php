@@ -1,5 +1,5 @@
 <h1 class="text-center">
-    Welcome !
+    Welcome
 </h1>
 
 <p class="text-center">

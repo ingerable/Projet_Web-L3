@@ -9,6 +9,6 @@ class Controller_Home extends Controller_Base
 
 	public function index()
 	{
-			$this->render_view('home');
+        	$this->render_view('home');
 	}
 }
