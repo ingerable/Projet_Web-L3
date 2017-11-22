@@ -1,4 +1,4 @@
 <footer>
-	<p> Département informatique </p>
-	<p> IUT Robert Schuman </p>
+	<p>P31</p>
+	<p>IUT Robert Schuman</p>
 </footer>

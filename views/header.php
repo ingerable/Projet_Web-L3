@@ -1,4 +1,4 @@
 <header>
-	<h1> W31 </h1>
-	<p> Server-side programmation </p>
+	<h1>Notes</h1>
+	<p>Take + Share</p>
 </header>

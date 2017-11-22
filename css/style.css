@@ -16,10 +16,8 @@ body {
 	font-size: 1.6rem;
 	margin: 0;
 	min-height: 100vh;
-	display: -webkit-flex;
 	display: flex;
 	flex-direction: column;
-	-webkit-flex-direction: column;
 }
 
 header {
@@ -63,7 +61,6 @@ nav a:hover {
 
 main {
 	flex: 1;
-	-webkit-flex: 1;
 	width: 50%;
 	margin: auto;
 }
@@ -144,24 +141,20 @@ form.noborder {
 
 .formline {
 	display: flex;
-	display: -webkit-flex;
 }
 .formline:not(:last-child) {
 	margin-bottom: 1rem;
 }
 .formline label {
 	flex: 1;
-	-webkit-flex: 1;
 	text-align: right;
 	padding-right: 1rem;
 }
 .formline input {
 	flex: 3;
-	-webkit-flex: 3;
 }
 .formline textarea {
 	flex: 3;
-	-webkit-flex: 3;
 }
 
 h1, h2, h3 {
@@ -171,50 +164,15 @@ h1, h2, h3 {
 
 ul.squarelist {
 	display: flex;
-	display: -webkit-flex;
 	flex-direction: line;
-	-webkit-flex-direction: line;
 	flex-wrap: wrap;
-	-webkit-flex-wrap: wrap;
 	justify-content: center;
-	-webkit-justify-content: center;
 	list-style-type: none;
 	padding: 0;
 }
 ul.squarelist li {
 	flex: 0 1 20rem;
-	-webkit-flex: 0 1 20rem;
 	padding: 0 1rem;
 	margin: 1rem;
 	border: 1px solid black;
 }
-
-#history {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	max-height: 500px;
-	overflow: auto;
-}
-
-#history li {
-	padding: 5px 10px;
-}
-
-#history li:nth-child(odd) {
-	background: #eee;
-}
-
-#message {
-	margin-top: 20px;
-	border: 2px solid black;
-	display: flex;
-}
- #message input {
- 	flex: 1;
- 	-webkit-flex: 1;
- }
- #message button {
- 	width: 200px;
- 	border-left: 2px solid black;
- }
