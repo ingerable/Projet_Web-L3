@@ -5,6 +5,21 @@
 		<label>Choose a login</label>
 		<input type="text" placeholder="login" name="login">
 	</div>
+
+	<div class="formline">
+		<label>Your first name</label>
+		<input type="text" placeholder="firstname" name="text">
+	</div>
+
+	<div class="formline">
+		<label>Your last name</label>
+		<input type="text" placeholder="lastname" name="text">
+	</div>
+
+	<div class="formline">
+		<label>Put your mail address</label>
+		<input type="email" placeholder="youradress@email.smthg" name="email">
+	</div>
 	
 	<div class="formline">
 		<label>Choose a password</label>

@@ -10,6 +10,10 @@ class User extends Model_Base
 	private $_id;
 	private $_login;
 	private $_password;
+	private $_mail;
+	private $_prenom;
+	private $_nom;
+
 
 	public function __construct(array $data)
 	{
@@ -91,6 +95,41 @@ class User extends Model_Base
 			$this->_login = $l;
 		}
 	}
+
+	public function nom()
+	{
+		return $this->_login;
+	}
+	public function set_nom($l)
+	{
+		if(is_string($l)) {
+			$this->_login = $l;
+		}
+	}
+
+	public function prenom()
+	{
+		return $this->_login;
+	}
+	public function set_prenom($l)
+	{
+		if(is_string($l)) {
+			$this->_login = $l;
+		}
+	}
+
+	public function mail()
+	{
+		return $this->_login;
+	}
+	public function set_mail($l)
+	{
+		if(is_string($l)) {
+			$this->_login = $l;
+		}
+	}
+
+
 
 	public function password()
 	{
