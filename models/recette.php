@@ -8,6 +8,7 @@ require_once 'models/model_base.php';
 class User extends Model_Base
 {
 	private $_nomRecette;
+	private $_id;
 	private $_descriptif;
 	private $_calories;
 	private $_difficulte;
@@ -29,8 +30,9 @@ class User extends Model_Base
 	{
 		$u = new Recette($data);
 
-		$q = self::$_db->prepare('INSERT INTO recette SET login = :l, nomRecette =: np, descriptif =: d, calories := c, difficulte := dif, note := n, nbrPersonnes := nbP, 
-								lipides := lip, glucides := g, proteines := prot, duree := d');
+		$q = self::$_db->prepare('INSERT INTO recette SET login = :l, nomRecette = :np, descriptif = :d, calories = :c, difficulte = :dif, note = :n, nbrPersonnes = :nbP, 
+								lipides = :lip, glucides = :g, proteines = :prot, duree = :d,
+								   autoIdRecette = :air');
 		$q->bindValue(':l', $u->login(), PDO::PARAM_STR);
 		$q->bindValue(':np', $u->nomRecette(), PDO::PARAM_STR);
 		$q->bindValue(':d', $u->descriptif(), PDO::PARAM_STR);
@@ -40,7 +42,8 @@ class User extends Model_Base
 		$q->bindValue(':nbP', $u->nbrPersonnes(), PDO::PARAM_STR);
 		$q->bindValue(':lip', $u->lipides(), PDO::PARAM_STR);
 		$q->bindValue(':prot', $u->proteines(), PDO::PARAM_STR);
-		$q->bindValue(':d', $u->duree(), PDO::PARAM_STR);		
+		$q->bindValue(':d', $u->duree(), PDO::PARAM_STR);
+		$q->bindValue(':air', $u->id(), PDO::PARAM_STR);		
 		$q->execute();
 		$u->set_id(self::$_db->lastInsertId());
 		return $u;
@@ -49,7 +52,7 @@ class User extends Model_Base
 	public static function get_by_id($id)
 	{
 		$id = (int) $id;
-		$q = self::$_db->prepare('SELECT * FROM recette WHERE id = :id');
+		$q = self::$_db->prepare('SELECT * FROM recette WHERE autoIdRecette = :id');
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 		$q->execute();
 		if($data = $q->fetch(PDO::FETCH_ASSOC)) {
@@ -143,32 +146,32 @@ class User extends Model_Base
 	}
 
 
-	public function note()
-	{
-		return $this->_note;
-	}
-	public function set_note($n)
-	{
-		if(is_string($n){
-			$this->_password = $n;
-		}
-	}
-
 	public function save()
 	{
 		if(!is_null($this->_id)) {
-			$q = self::$_db->prepare('UPDATE user SET login = :l, password = :p WHERE id = :id');
-			$q->bindValue(':l', $this->_login, PDO::PARAM_STR);
-			$q->bindValue(':p', $this->_password, PDO::PARAM_STR);
-			$q->bindValue(':id', $this->_id, PDO::PARAM_INT);
+			$q = self::$_db->prepare('UPDATE recette SET nomRecette = :nr, descriptif = :des, difficulte = :dif, calories = :cal, nbrPersonnes = :nbrP, Lipides = :l, Glucides = :g, Proteines = :prot, Duree = :d, login = :log   WHERE autoIdRecette = :id');
+			$q->bindValue(':nr', $this->_nomRecette, PDO::PARAM_STR);
+			$q->bindValue(':id', $this->_id, PDO::PARAM_STR);
+			$q->bindValue(':des', $this->_descriptif, PDO::PARAM_INT);
+			$q->bindValue(':cal', $this->_calories, PDO::PARAM_STR);
+			$q->bindValue(':dif', $this->_difficulte, PDO::PARAM_STR);
+			$q->bindValue(':nbrP', $this->_nbrPersonnes, PDO::PARAM_INT);
+			$q->bindValue(':l', $this->_lipides, PDO::PARAM_STR);
+			$q->bindValue(':g', $this->_glucides, PDO::PARAM_STR);
+			$q->bindValue(':prot', $this->_proteines, PDO::PARAM_INT);
+			$q->bindValue(':d', $this->_duree, PDO::PARAM_STR);
+			$q->bindValue(':log', $this->_login, PDO::PARAM_INT);
 			$q->execute();
 		}
 	}
 
+
+
+
 	public function delete()
 	{
 		if(!is_null($this->_id)) {
-			$q = self::$_db->prepare('DELETE FROM user WHERE id = :id');
+			$q = self::$_db->prepare('DELETE FROM recette WHERE autoIdRecette = :id');
 			$q->bindValue(':id', $this->_id);
 			$q->execute();
 			$this->_id = null;
