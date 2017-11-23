@@ -19,6 +19,7 @@ class User extends Model_Base
 	private $_proteines;
 	private $_duree;
 	private $_login;
+	private $__illustration;
 
 
 	public function __construct(array $data)
@@ -32,7 +33,7 @@ class User extends Model_Base
 
 		$q = self::$_db->prepare('INSERT INTO recette SET login = :l, nomRecette = :np, descriptif = :d, calories = :c, difficulte = :dif, note = :n, nbrPersonnes = :nbP, 
 								lipides = :lip, glucides = :g, proteines = :prot, duree = :d,
-								   autoIdRecette = :air');
+								   autoIdRecette = :air, illustration = :ill');
 		$q->bindValue(':l', $u->login(), PDO::PARAM_STR);
 		$q->bindValue(':np', $u->nomRecette(), PDO::PARAM_STR);
 		$q->bindValue(':d', $u->descriptif(), PDO::PARAM_STR);
@@ -43,7 +44,8 @@ class User extends Model_Base
 		$q->bindValue(':lip', $u->lipides(), PDO::PARAM_STR);
 		$q->bindValue(':prot', $u->proteines(), PDO::PARAM_STR);
 		$q->bindValue(':d', $u->duree(), PDO::PARAM_STR);
-		$q->bindValue(':air', $u->id(), PDO::PARAM_STR);		
+		$q->bindValue(':air', $u->id(), PDO::PARAM_STR);
+		$q->bindValue(':ill', $u->illustration(), PDO::PARAM_STR);			
 		$q->execute();
 		$u->set_id(self::$_db->lastInsertId());
 		return $u;
@@ -145,11 +147,22 @@ class User extends Model_Base
 		}
 	}
 
+	public function illustration()
+	{
+		return $this->_illustration;
+	}
+	public function set_illustration($l)
+	{
+		if(is_string($l)) {
+			$this->_illustration = $l;
+		}
+	}
+
 
 	public function save()
 	{
 		if(!is_null($this->_id)) {
-			$q = self::$_db->prepare('UPDATE recette SET nomRecette = :nr, descriptif = :des, difficulte = :dif, calories = :cal, nbrPersonnes = :nbrP, Lipides = :l, Glucides = :g, Proteines = :prot, Duree = :d, login = :log   WHERE autoIdRecette = :id');
+			$q = self::$_db->prepare('UPDATE recette SET nomRecette = :nr, descriptif = :des, difficulte = :dif, calories = :cal, nbrPersonnes = :nbrP, Lipides = :l, Glucides = :g, Proteines = :prot, Duree = :d, login = :log , illustration =: ill  WHERE autoIdRecette = :id');
 			$q->bindValue(':nr', $this->_nomRecette, PDO::PARAM_STR);
 			$q->bindValue(':id', $this->_id, PDO::PARAM_STR);
 			$q->bindValue(':des', $this->_descriptif, PDO::PARAM_INT);
@@ -161,6 +174,7 @@ class User extends Model_Base
 			$q->bindValue(':prot', $this->_proteines, PDO::PARAM_INT);
 			$q->bindValue(':d', $this->_duree, PDO::PARAM_STR);
 			$q->bindValue(':log', $this->_login, PDO::PARAM_INT);
+			$q->bindValue(':ill', $this->_illustration, PDO::PARAM_INT);
 			$q->execute();
 		}
 	}
