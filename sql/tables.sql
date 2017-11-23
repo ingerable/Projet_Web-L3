@@ -20,7 +20,7 @@ CREATE TABLE recette(
         Duree         Float ,
         autoIdRecette int (11) Auto_increment  NOT NULL ,
         login         Varchar (25) NOT NULL ,
-        PRIMARY KEY (nomRecette ,autoIdRecette )
+        PRIMARY KEY (autoIdRecette )
 )ENGINE=InnoDB;
 
 
@@ -72,9 +72,8 @@ CREATE TABLE Etape(
         temps             Float ,
         illustration      Blob ,
         description_etape Varchar (200) ,
-        nomRecette        Varchar (23) NOT NULL ,
         autoIdRecette     Int NOT NULL ,
-        PRIMARY KEY (Ordre ,nomRecette ,autoIdRecette )
+        PRIMARY KEY (Ordre ,autoIdRecette )
 )ENGINE=InnoDB;
 
 
@@ -170,10 +169,9 @@ CREATE TABLE ne_suit_pas(
 CREATE TABLE contient(
         quantite      Float ,
         grammes       Float ,
-        nomRecette    Varchar (23) NOT NULL ,
         autoIdRecette Int NOT NULL ,
         nomIngredient Varchar (23) NOT NULL ,
-        PRIMARY KEY (nomRecette ,autoIdRecette ,nomIngredient )
+        PRIMARY KEY (autoIdRecette ,nomIngredient )
 )ENGINE=InnoDB;
 
 
@@ -183,14 +181,12 @@ CREATE TABLE contient(
 
 CREATE TABLE planning(
         dateRealisation Date NOT NULL ,
-        nomRecette      Varchar (23) NOT NULL ,
         autoIdRecette   Int NOT NULL ,
         login           Varchar (25) NOT NULL ,
-        PRIMARY KEY (nomRecette ,autoIdRecette ,login )
+        PRIMARY KEY (autoIdRecette ,login )
 )ENGINE=InnoDB;
 
 ALTER TABLE recette ADD CONSTRAINT FK_recette_login FOREIGN KEY (login) REFERENCES Utilisateur(login);
-ALTER TABLE Etape ADD CONSTRAINT FK_Etape_nomRecette FOREIGN KEY (nomRecette) REFERENCES recette(nomRecette);
 ALTER TABLE Etape ADD CONSTRAINT FK_Etape_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette);
 ALTER TABLE a_chez_lui ADD CONSTRAINT FK_a_chez_lui_login FOREIGN KEY (login) REFERENCES Utilisateur(login);
 ALTER TABLE a_chez_lui ADD CONSTRAINT FK_a_chez_lui_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient);
@@ -200,9 +196,7 @@ ALTER TABLE doit_acheter ADD CONSTRAINT FK_doit_acheter_login FOREIGN KEY (login
 ALTER TABLE doit_acheter ADD CONSTRAINT FK_doit_acheter_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient);
 ALTER TABLE ne_suit_pas ADD CONSTRAINT FK_ne_suit_pas_nomRegime FOREIGN KEY (nomRegime) REFERENCES regime_alimentaire(nomRegime);
 ALTER TABLE ne_suit_pas ADD CONSTRAINT FK_ne_suit_pas_nomCategorie FOREIGN KEY (nomCategorie) REFERENCES categorie_ingredient(nomCategorie);
-ALTER TABLE contient ADD CONSTRAINT FK_contient_nomRecette FOREIGN KEY (nomRecette) REFERENCES recette(nomRecette);
 ALTER TABLE contient ADD CONSTRAINT FK_contient_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette);
 ALTER TABLE contient ADD CONSTRAINT FK_contient_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient);
-ALTER TABLE planning ADD CONSTRAINT FK_planning_nomRecette FOREIGN KEY (nomRecette) REFERENCES recette(nomRecette);
 ALTER TABLE planning ADD CONSTRAINT FK_planning_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette);
 ALTER TABLE planning ADD CONSTRAINT FK_planning_login FOREIGN KEY (login) REFERENCES Utilisateur(login);
