@@ -7,13 +7,13 @@ require_once 'models/model_base.php';
 */
 class Ingredient extends Model_Base
 {
-	private $_id;
+
 	private $_nomIngredient;
 	private $_calories;
-	private $_lipides;
-	private $_glucides;
-	private $_proteines;
-	private $_popularite;
+	private $_Lipides;
+	private $_Glucides;
+	private $_Proteines;
+	private $_Popularite;
 
 
 	public function __construct(array $data)
@@ -34,22 +34,9 @@ class Ingredient extends Model_Base
 		$q->bindValue(':pop', $u->Popularite(), PDO::PARAM_STR);
 		$q->execute();
 
-		$u->set_id(self::$_db->lastInsertId());
 		return $u;
 	}
 
-	public static function get_by_id($id)
-	{
-		$id = (int) $id;
-		$q = self::$_db->prepare('SELECT * FROM ingredient WHERE id = :id');
-		$q->bindValue(':id', $id, PDO::PARAM_INT);
-		$q->execute();
-		if($data = $q->fetch(PDO::FETCH_ASSOC)) {
-			return new Ingredient($data);
-		} else {
-			return null;
-		}
-	}
 
 	public static function get_by_nomIngredient($ni)
 	{
@@ -78,17 +65,6 @@ class Ingredient extends Model_Base
 		return $p;
 	}
 
-	public function id()
-	{
-		return $this->_id;
-	}
-	public function set_id($id)
-	{
-		$id = (int) $id;
-		if ($id > 0) {
-			$this->_id = $id;
-		}
-	}
 
 	public function nomIngredient()
 	{
@@ -160,9 +136,9 @@ class Ingredient extends Model_Base
 
 	public function save()
 	{
-		if(!is_null($this->_id)) {
+		if(!is_null($this->_nomIngredient)) {
 		$q = self::$_db->prepare('UPDATE ingredient SET nomIngredient = :ni, calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop 
-										 WHERE id = :id');
+										 WHERE nomIngredient = :ni');
 		$q->bindValue(':ni', $u->nomIngredient(), PDO::PARAM_STR);
 		$q->bindValue(':c', $u->calories(), PDO::PARAM_STR);
 		$q->bindValue(':l', $u->Lipides(), PDO::PARAM_STR);
@@ -179,11 +155,11 @@ class Ingredient extends Model_Base
 
 	public function delete()
 	{
-		if(!is_null($this->_id)) {
-			$q = self::$_db->prepare('DELETE FROM ingredient WHERE id = :id');
-			$q->bindValue(':id', $this->_id);
+		if(!is_null($this->_nomIngredient)) {
+			$q = self::$_db->prepare('DELETE FROM ingredient WHERE _nomIngredient = :ni');
+			$q->bindValue(':ni', $this->_nomIngredient);
 			$q->execute();
-			$this->_id = null;
+			$this->_nomIngredient = null;
 		}
 	}
 }

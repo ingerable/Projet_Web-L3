@@ -19,7 +19,7 @@ CREATE TABLE recette(
         Proteines     Float ,
         Duree         Float ,
         autoIdRecette int (11) Auto_increment  NOT NULL ,
-        illustration  Varchar (80) ,
+        illustration  Varchar (200) ,
         login         Varchar (25) NOT NULL ,
         PRIMARY KEY (autoIdRecette )
 )ENGINE=InnoDB;
@@ -47,7 +47,7 @@ CREATE TABLE ingredient(
 CREATE TABLE Utilisateur(
         login        Varchar (25) NOT NULL ,
         adresse      Varchar (25) NOT NULL ,
-        mot_de_passe Varchar (25) NOT NULL ,
+        mot_de_passe Varchar (256) NOT NULL ,
         nom          Varchar (25) NOT NULL ,
         prenom       Varchar (25) NOT NULL ,
         PRIMARY KEY (login )
@@ -71,7 +71,7 @@ CREATE TABLE categorie_ingredient(
 CREATE TABLE Etape(
         Ordre             Int NOT NULL ,
         temps             Float ,
-        illustration      Varchar (80) ,
+        illustration      Varchar (200) ,
         description_etape Varchar (200) ,
         autoIdRecette     Int NOT NULL ,
         PRIMARY KEY (Ordre ,autoIdRecette )
