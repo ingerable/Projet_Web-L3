@@ -1,14 +1,12 @@
 <?php
 
-#define('SQL_DSN',      'mysql:host=localhost;dbname=notes;charset=utf8');
-#define('SQL_USERNAME', 'j.vanassche');
-#define('SQL_PASSWORD', 'starcraft2');
 
+require_once 'global/config.php'
 require_once 'global/utils.php';
 require_once 'models/model_base.php';
 
-#$db = new PDO(SQL_DSN, SQL_USERNAME, SQL_PASSWORD);
-#Model_Base::set_db($db);
+$db = new PDO(SQL_DSN, SQL_USERNAME, SQL_PASSWORD);
+Model_Base::set_db($db);
 
 session_set_cookie_params(6000, '/', '', false, true);
 session_start();
