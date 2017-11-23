@@ -1,6 +1,6 @@
 <?php
 
-const SQL_DSN = 'mysql:host=localhost;
-                  dbname=web_l3';
-const SQL_USERNAME = 'j.vanassche';
-const SQL_PASSWORD = 'starcraft2';
+const SQL_DSN = 'mysql:host=osr-bdd2.u-strasbg.fr;
+                  dbname=jnuss';
+const SQL_USERNAME = 'jnuss';
+const SQL_PASSWORD = 'jnpa1128';
