@@ -1,7 +1,7 @@
 <?php
 
 
-require_once 'global/config.php'
+require_once 'global/config.php';
 require_once 'global/utils.php';
 require_once 'models/model_base.php';
 
