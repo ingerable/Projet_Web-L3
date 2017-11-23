@@ -8,12 +8,12 @@
 
 	<div class="formline">
 		<label>Your first name</label>
-		<input type="text" placeholder="firstname" name="firstname">
+		<input type="text" placeholder="firstname" name="text">
 	</div>
 
 	<div class="formline">
 		<label>Your last name</label>
-		<input type="text" placeholder="lastname" name="lastname">
+		<input type="text" placeholder="lastname" name="text">
 	</div>
 
 	<div class="formline">

@@ -81,7 +81,7 @@ class Controller_User
 
 	public function signout()
 	{
-		unset($_SESSION['user_login']);
+		unset($_SESSION['user_id']);
 		message('success', 'User successfully signed out');
 		header('Location: '.BASEURL);
 		exit;
