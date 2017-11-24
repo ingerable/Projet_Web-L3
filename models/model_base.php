@@ -1,5 +1,8 @@
 <?php
 
+require_once 'models/ingredient.php';
+require_once 'models/etape.php';
+
 class Model_Base
 {
 	protected static $_db;

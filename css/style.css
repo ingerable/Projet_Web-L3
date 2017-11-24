@@ -176,3 +176,25 @@ ul.squarelist li {
 	margin: 1rem;
 	border: 1px solid black;
 }
+
+img {
+	width:200px;
+	height:180px;
+	vertical-align:middle;
+	 display: table-cell;
+}
+
+.stage {
+	font-family: cursive;
+	color: grey;
+
+}
+
+.recipePicDiv{
+	display: table;
+}
+
+.recipePicSpan {
+	vertical-align: middle;
+  display: table-cell;
+}

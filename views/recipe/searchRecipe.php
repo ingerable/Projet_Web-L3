@@ -11,8 +11,17 @@
 		</div>
 	</div>
 </form>
-<?php
 
+
+<ul id="navScroll" class="dropdown">
+<?php	
+	$allRecipes = recipe::get_all(); // on récupère toutes les recettes
 	echo '<ul>';
-	$allRecettes = recipe::getAll();
-	foreach()
+	foreach($allRecipes as $key => $r)
+	{
+	
+		echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().'</h2></li>';
+	}
+	echo '</ul>';
+?>
+</ul>

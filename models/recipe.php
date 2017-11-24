@@ -2,10 +2,11 @@
 
 require_once 'models/model_base.php';
 
+
 /**
 * 
 */
-class User extends Model_Base
+class recipe extends Model_Base
 {
 	private $_nomRecette;
 	private $_autoIdRecette;
@@ -29,7 +30,7 @@ class User extends Model_Base
 
 	public static function create(array $data)
 	{
-		$u = new Recette($data);
+		$u = new Recipe($data);
 
 		$q = self::$_db->prepare('INSERT INTO recette SET login = :l, nomRecette = :np, descriptif = :d, calories = :c, difficulte = :dif, note = :n, nbrPersonnes = :nbP, 
 								lipides = :lip, Glucides = :g, Proteines = :prot, duree = :d,
@@ -58,23 +59,7 @@ class User extends Model_Base
 		$q->bindValue(':id', $id, PDO::PARAM_INT);
 		$q->execute();
 		if($data = $q->fetch(PDO::FETCH_ASSOC)) {
-			return new User($data);
-		} else {
-			return null;
-		}
-	}
-
-	public static function get_by_nomRecette($nomR)
-	{
-		if(is_string($nomR)) {
-			$q = self::$_db->prepare('SELECT * FROM recette WHERE nomRecette = :nomR');
-			$q->bindValue(':nomR', $nomR, PDO::PARAM_STR);
-			$q->execute();
-			if($data = $q->fetch(PDO::FETCH_ASSOC)) {
-				return new User($data);
-			} else {
-				return null;
-			}
+			return new recipe($data);
 		} else {
 			return null;
 		}
@@ -86,7 +71,7 @@ class User extends Model_Base
 		$q = self::$_db->prepare('SELECT * FROM recette ORDER BY nomRecette');
 		$q->execute();
 		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
-			$p[] = new Recette($data);
+			$p[] = new Recipe($data);
 		}
 		return $p;
 	}
@@ -118,10 +103,10 @@ class User extends Model_Base
 	{
 		return $this->_nomRecette;
 	}
-	public function set_nom($nomR)
+	public function set_nomRecette($nomR)
 	{
 		if(is_string($nomR)) {
-			$this->_nomR = $nomR;
+			$this->_nomRecette = $nomR;
 		}
 	}
 
@@ -156,6 +141,107 @@ class User extends Model_Base
 		if(is_string($l)) {
 			$this->_illustration = $l;
 		}
+	}
+
+	public function calories()
+	{
+		return $this->_calories;
+	}
+	public function set_calories($l)
+	{
+		if(is_string($l)) {
+			$this->_calories = $l;
+		}
+	}
+
+	public function note()
+	{
+		return $this->_note;
+	}
+	public function set_note($l)
+	{
+		if(is_string($l)) {
+			$this->_note = $l;
+		}
+	}
+
+	public function nbrPersonnes()
+	{
+		return $this->_nbrPersonnes;
+	}
+	public function set_nbrPersonnes($l)
+	{
+		if(is_string($l)) {
+			$this->_nbrPersonnes = $l;
+		}
+	}
+
+	public function lipides()
+	{
+		return $this->_lipides;
+	}
+	public function set_lipides($l)
+	{
+		if(is_string($l)) {
+			$this->_lipides = $l;
+		}
+	}
+
+	public function glucides()
+	{
+		return $this->_Glucides;
+	}
+	public function set_Glucides($l)
+	{
+		if(is_string($l)) {
+			$this->_Glucides = $l;
+		}
+	}
+
+	public function proteines()
+	{
+		return $this->_Glucides;
+	}
+	public function set_Proteines($l)
+	{
+		if(is_string($l)) {
+			$this->_Proteines = $l;
+		}
+	}
+
+	public function duree()
+	{
+		return $this->_duree;
+	}
+	public function set_duree($l)
+	{
+		if(is_string($l)) {
+			$this->_duree = $l;
+		}
+	}
+
+	public function allIngredients()
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM ingredient i join contient c on c.nomIngredient = i.nomIngredient where autoIdRecette = :idR');
+		$q->bindValue(':idR', $this->_autoIdRecette, PDO::PARAM_STR);
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
+			$p[] = new Ingredient($data);
+		}
+		return $p;
+	}
+
+	public function allEtapes()
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM etape where autoIdRecette = :idR');
+		$q->bindValue(':idR', $this->_autoIdRecette, PDO::PARAM_STR);
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
+			$p[] = new Etape($data);
+		}
+		return $p;
 	}
 
 
