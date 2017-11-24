@@ -76,6 +76,20 @@ class recipe extends Model_Base
 		return $p;
 	}
 
+	public function sumStagesTime()
+	{
+		$recipeTime;
+		$q = self::$_db->prepare('SELECT sum(temps) FROM etape where autoIdRecette = :air');
+		$q->bindValue(':air', $this->_autoIdRecette, PDO::PARAM_INT);
+		if($q->execute())
+		{
+			$data = $q->fetch();
+			return $data[0];
+		}
+		
+		return NULL;
+	}
+
 	public function autoIdRecette()
 	{
 		return $this->_autoIdRecette;
@@ -134,7 +148,16 @@ class recipe extends Model_Base
 
 	public function illustration()
 	{
-		return $this->_illustration;
+
+		if(is_null($this->_illustration))
+		{
+			return "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.ntochi.jp%2Fwp-content%2Fthemes%2Fntochi%2Fimages%2Fnoimage.gif%3Fc4e42d&f=1";
+		}
+		else
+		{
+			return $this->_illustration;
+		}
+		
 	}
 	public function set_illustration($l)
 	{
@@ -218,6 +241,20 @@ class recipe extends Model_Base
 		if(is_string($l)) {
 			$this->_duree = $l;
 		}
+	}
+
+	public function hours()
+	{
+		$sumStagesTime = $this->sumStagesTime(); 
+ 		$hours = floor($sumStagesTime/60);
+ 		return $hours;
+	}
+
+	public function minutes()
+	{
+		$sumStagesTime = $this->sumStagesTime(); 
+		$minutes = $sumStagesTime%60;
+		return $minutes;
 	}
 
 	public function allIngredients()

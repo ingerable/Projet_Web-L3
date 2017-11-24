@@ -13,7 +13,7 @@ public function __construct()
 			switch ($_SERVER['REQUEST_METHOD']) 
 			{
 				case 'POST':
-					# code...
+					include 'views/recipe/searchRecipe.php';
 					break;
 				
 				case 'GET':
@@ -27,7 +27,7 @@ public function __construct()
 		switch ($_SERVER['REQUEST_METHOD']) 
 			{
 				case 'POST':
-					# code...
+					include 'views/recipe/displayRecipe.php';
 					break;
 				
 				case 'GET':
