@@ -15,10 +15,10 @@ class Controller_User
 					$u = User::get_by_login($_POST['login']);
 					if (is_null($u)) {
 						if ($_POST['password'] == $_POST['password_check']) {
-							User::create(array(
+							$u = User::create(array(
 								'login' => $_POST['login'],
-								'password' => sha1($_POST['password']),
-								'mail' => $_POST['email'],
+								'mot_de_passe' => sha1($_POST['password']),
+								'adresse' => $_POST['email'],
 								'prenom' => $_POST['firstname'],
 								'nom' => $_POST['lastname']
 							));

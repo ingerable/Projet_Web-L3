@@ -43,12 +43,13 @@ class recipe extends Model_Base
 		$q->bindValue(':n', $u->note(), PDO::PARAM_STR);
 		$q->bindValue(':nbP', $u->nbrPersonnes(), PDO::PARAM_STR);
 		$q->bindValue(':lip', $u->lipides(), PDO::PARAM_STR);
+		$q->bindValue(':g' ,$u->glucides(),PDO::PARAM_STR);
 		$q->bindValue(':prot', $u->Proteines(), PDO::PARAM_STR);
 		$q->bindValue(':d', $u->duree(), PDO::PARAM_STR);
-		$q->bindValue(':air', $u->id(), PDO::PARAM_STR);
+		$q->bindValue(':air', $u->autoIdRecette(), PDO::PARAM_STR);
 		$q->bindValue(':ill', $u->illustration(), PDO::PARAM_STR);			
 		$q->execute();
-		$u->set_id(self::$_db->lastInsertId());
+		$u->set_autoIdRecette(self::$_db->lastInsertId());
 		return $u;
 	}
 
@@ -299,12 +300,11 @@ class recipe extends Model_Base
 	public function save()
 	{
 		if(!is_null($this->_autoIdRecette)) {
-			$q = self::$_db->prepare('UPDATE recette SET nomRecette = :nr, descriptif = :des, difficulte = :dif, calories = :cal, nbrPersonnes = :nbrP, Lipides = :l, Glucides = :g, Proteines = :prot, Duree = :d, login = :log , illustration =: ill  WHERE autoIdRecette = :id');
+			$q = self::$_db->prepare('UPDATE recette SET nomRecette = :nr, descriptif = :des, difficulte = :dif, calories = :cal, nbrPersonnes = :nbrP, Lipides = :l, Glucides = :g, Proteines = :prot, Duree = :d, login = :log , illustration =: ill, note = :n WHERE autoIdRecette = :id');
 			$q->bindValue(':nr', $this->_nomRecette, PDO::PARAM_STR);
-			$q->bindValue(':id', $this->_autoIdRecette, PDO::PARAM_STR);
 			$q->bindValue(':des', $this->_descriptif, PDO::PARAM_INT);
-			$q->bindValue(':cal', $this->_calories, PDO::PARAM_STR);
 			$q->bindValue(':dif', $this->_difficulte, PDO::PARAM_STR);
+			$q->bindValue(':cal', $this->_calories, PDO::PARAM_STR);
 			$q->bindValue(':nbrP', $this->_nbrPersonnes, PDO::PARAM_INT);
 			$q->bindValue(':l', $this->_lipides, PDO::PARAM_STR);
 			$q->bindValue(':g', $this->_Glucides, PDO::PARAM_STR);
@@ -312,6 +312,9 @@ class recipe extends Model_Base
 			$q->bindValue(':d', $this->_duree, PDO::PARAM_STR);
 			$q->bindValue(':log', $this->_login, PDO::PARAM_INT);
 			$q->bindValue(':ill', $this->_illustration, PDO::PARAM_INT);
+			$q->bindValue(':n', $this->_note, PDO::PARAM_INT);
+			$q->bindValue(':id', $this->_autoIdRecette, PDO::PARAM_STR);
+					
 			$q->execute();
 		}
 	}

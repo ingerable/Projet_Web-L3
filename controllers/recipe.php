@@ -42,7 +42,27 @@ public function __construct()
 		switch ($_SERVER['REQUEST_METHOD']) 
 		{
 			case 'POST':
-				# code...
+				if (check_post_values(array('nomRecette', 'nbrPersonnes', 'illustration', 'difficulte',  'descriptif'))) 
+				{
+					$u = get_connected_user();
+					$login = $u->login();
+					$r = recipe::create(array(
+						'nomRecette'=>$_POST['nomRecette'],
+						'nbrPersonnes'=>$_POST['nbrPersonnes'],
+						'illustration'=>$_POST['illustration'],
+						'difficulte'=>$_POST['difficulte'],
+						'descriptif'=>$_POST['descriptif'],
+						'calories'=>0,
+						'lipides'=>0,
+						'Glucides'=>0,
+						'Proteines'=>0,
+						'duree'=>0,
+						'login'=>$login,
+						'note'=>0));
+					message('success', 'Recipe'.$_POST['nomRecette'].' successfully created, now you can add ingredients
+						and stage');
+					//header('Location: '.BASEURL.'/index.php/recipe/signin');
+				}
 				break;
 			
 			case 'GET':

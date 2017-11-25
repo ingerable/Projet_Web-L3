@@ -18,12 +18,12 @@
 
 	<div class="formline">
 	<label>Difficulty </label>
-		 <select name="difficulty">
-    		<option value="volvo">1</option>
-    		<option value="saab">2</option>
-    		<option value="fiat">3</option>
-    		<option value="audi">4</option>
-    		<option value="audi">5</option>
+		 <select name="difficulte">
+    		<option value=1>1</option>
+    		<option value=2>2</option>
+    		<option value=3>3</option>
+    		<option value=4>4</option>
+    		<option value=5>5</option>
   		</select>
   <br><br>
 	</div>

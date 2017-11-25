@@ -24,14 +24,14 @@ if (!function_exists('message')) {
 
 if (!function_exists('user_connected')) {
 	function user_connected() {
-		return isset($_SESSION['user_id']);
+		return isset($_SESSION['user_login']);
 	}
 }
 
 if (!function_exists('get_connected_user')) {
 	function get_connected_user() {
-		if (isset($_SESSION['user_id'])) {
-			$u = User::get_by_id($_SESSION['user_id']);
+		if (isset($_SESSION['user_login'])) {
+			$u = User::get_by_login($_SESSION['user_login']);
 			return $u;
 		} else {
 			return null;
