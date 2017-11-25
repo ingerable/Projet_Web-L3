@@ -14,8 +14,16 @@
 
 
 <ul id="navScroll" class="dropdown">
-<?php	
-	$allRecipes = recipe::get_all(); // on récupère toutes les recettes
+<?php
+	if($_SERVER['REQUEST_METHOD']=='POST')
+	{
+		$allRecipes = recipe::get_Recipe_Like($_POST["recipe"]);
+	}
+	else if($_SERVER['REQUEST_METHOD']=='GET')
+	{
+		$allRecipes = recipe::get_all(); // on récupère toutes les recettes
+	}	
+	
 	echo '<ul>';
 	foreach($allRecipes as $key => $r)
 	{

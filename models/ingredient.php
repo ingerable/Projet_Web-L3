@@ -134,6 +134,43 @@ class Ingredient extends Model_Base
 	}
 
 
+
+	//renvoie la mesure utilisé pour l'ingredient (sous type littéral)
+	public function mesure($autoIdRecette)
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM contient where autoIdRecette = :idR AND nomIngredient = :nomI');
+		$q->bindValue(':idR', $autoIdRecette, PDO::PARAM_STR);
+		$q->bindValue(':nomI', $this->_nomIngredient, PDO::PARAM_STR);
+		$q->execute();
+		$p = $q->fetch(PDO::FETCH_ASSOC);			
+		$value;
+		
+		if(!is_null($p['quantite']) && is_null($p['grammes'])) // quantité non nulle et grammes nulle
+		{
+			if($p['quantite']>1)
+			{
+				$value = $p['quantite']." unités";
+			}
+			else
+			{
+				$value = $p['quantite']." unité";
+			}
+			
+		}
+		else if(is_null($p['quantite']) && !is_null($p['grammes'])) // quantité  nulle et grammes non nulle
+		{
+			$value = $p['grammes']." grammes";
+		}
+		else
+		{
+			$value = "undefined";
+		}
+
+		return $value;
+	}
+
+
 	public function save()
 	{
 		if(!is_null($this->_nomIngredient)) {

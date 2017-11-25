@@ -1,7 +1,9 @@
 <?php
 	$recipe = recipe::get_by_id($_GET["idRecette"]);
+	$author = User::get_by_login($recipe->login());
 	$ingredients = array();
 	$etapes = array();
+
 	//all ingredients
 	$ingredients = $recipe->allIngredients();
 
@@ -11,19 +13,29 @@
 
 	
 echo '<article class="h-recipe">
-  <h1 class="'.$recipe->nomRecette().'">'.$recipe->nomRecette().'</h1>
+  <h1 class="'.$recipe->nomRecette().'">'.$recipe->nomRecette().' by '.$author->prenom().' '. $author->nom().'</h1>
   <div class ="recipePicDiv">
   	<span class ="recipePicSpan"><img src="'.$recipe->illustration().'"illustration>
   	 Takes '.$recipe->hours().' hours and '.$recipe->minutes().' minutes 
      for '.$recipe->nbrPersonnes().' persons </span>
-  </div>';
+
+  </div>
+<h2> Caracteristics </h2>
+	<ul>
+		<li>Lipides :'.$recipe->lipides().'</li>
+		<li>Glucides :'.$recipe->glucides().'</li>
+		<li>Proteines :'.$recipe->proteines().'</li>
+		<li>Calories :'.$recipe->calories().'</li>
+	</ul>';
+
+ 
 
 
   echo '<h2> Ingredients </h2><ul>';
 
  foreach ($ingredients as $key => $ing) 
  {
- 	echo '<li class="p-ingredient">'.$ing->nomIngredient().'</li>';
+ 	echo '<li class="p-ingredient">'.$ing->nomIngredient().' : '.$ing->mesure($recipe->autoIdRecette()).'</li>';
  }
  echo '</ul><div class="e-instructions">'; 
  

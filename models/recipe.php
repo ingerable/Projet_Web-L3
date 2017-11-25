@@ -269,6 +269,7 @@ class recipe extends Model_Base
 		return $p;
 	}
 
+	//renvoie toutes les étapes d'une recette
 	public function allEtapes()
 	{
 		$p = array();
@@ -281,6 +282,19 @@ class recipe extends Model_Base
 		return $p;
 	}
 
+
+	//renvoie toutes les recettes contenant le mot en argument
+	public static function get_Recipe_Like($m)
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM recette where nomRecette LIKE :mot');
+		$q->bindValue(':mot', '%'.$m.'%', PDO::PARAM_STR);
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
+			$p[] = new recipe($data);
+		}
+		return $p;
+	}
 
 	public function save()
 	{

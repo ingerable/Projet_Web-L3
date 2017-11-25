@@ -9,8 +9,8 @@
 
 CREATE TABLE recette(
         nomRecette    Varchar (23) NOT NULL ,
-        descriptif    Varchar (100) ,
-        difficulte    Int NOT NULL ,
+        descriptif    Varchar (200) ,
+        difficulte    Int ,
         note          Int ,
         nbrPersonnes  Int ,
         Lipides       Float ,
