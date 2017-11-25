@@ -36,4 +36,18 @@ public function __construct()
 					break;
 			}
 	}
+
+	public function createRecipe()
+	{
+		switch ($_SERVER['REQUEST_METHOD']) 
+		{
+			case 'POST':
+				# code...
+				break;
+			
+			case 'GET':
+				include 'views/recipe/createRecipe.php';
+				break;
+		}
+	}
 }	

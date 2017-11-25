@@ -198,3 +198,7 @@ img {
 	vertical-align: middle;
   display: table-cell;
 }
+
+.difficulty{
+font-weight: bold;
+}

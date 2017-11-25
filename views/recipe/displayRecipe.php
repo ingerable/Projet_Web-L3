@@ -18,8 +18,13 @@ echo '<article class="h-recipe">
   	<span class ="recipePicSpan"><img src="'.$recipe->illustration().'"illustration>
   	 Takes '.$recipe->hours().' hours and '.$recipe->minutes().' minutes 
      for '.$recipe->nbrPersonnes().' persons </span>
-
   </div>
+
+
+<p class = "difficulty"> Difficulty :'.$recipe->difficulte().'/5 </p>
+
+<h2> Description </h2>
+'.$recipe->descriptif().'
 <h2> Caracteristics </h2>
 	<ul>
 		<li>Lipides :'.$recipe->lipides().'</li>

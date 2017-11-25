@@ -1,4 +1,4 @@
 <footer>
-	<p>P31</p>
-	<p>IUT Robert Schuman</p>
+	<p>2-7 2-7</p>
+	<p>C'est le site des recettes</p>
 </footer>
