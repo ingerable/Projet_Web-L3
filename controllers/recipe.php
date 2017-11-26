@@ -62,7 +62,8 @@ public function __construct()
 						'login'=>$login,
 						'note'=>0));
 					// on redirige l'utilisateur vers la page lui permettant de créer les ingrédients et étapes
-					header('Location: '.BASEURL.'/index.php/recipe/addStageIngredients?nbrStages='.$_POST['nbrStages'].'&nbrIngredients='.$_POST['nbrIngredients']);				
+					message('success', 'Recipe successfully created, now you can add ingredients
+						and stages');
 				}
 				break;
 			
@@ -86,19 +87,44 @@ public function __construct()
 			}
 	}
 
-	public function addStageIngredients()
+	public function addIngredient()
+	{
+
+		switch ($_SERVER['REQUEST_METHOD']) 
+		{
+			case 'POST':
+				if(isset($_POST['idRecette']) && isset($_POST['nomIngredient']) && (isset($_POST['quantite']) || isset($_POST['grammes'])) )
+				{
+					// on vérifie que les 2 champs ne soient pas remplies
+					if($_POST['quantite']!='' && $_POST['grammes']!='')
+					{
+						message('error', 'You can either fill grammes or quantite but not both');
+					}
+					else
+					{
+						// créer une table contient ?
+					}
+				} 
+				include 'views/recipe/addIngredient.php';
+				break;
+			
+			case 'GET':
+				include 'views/recipe/addIngredient.php';
+				break;
+		}
+	}
+
+	public function addStage()
 	{
 		switch ($_SERVER['REQUEST_METHOD']) 
 		{
 			case 'POST':
-					include 'views/recipe/addStageIngredients.php';
-					break;
-				
-				case 'GET':
-					include 'views/recipe/addStageIngredients.php';
-					message('success', 'Recipe successfully created, now you can add ingredients
-						and stage');
-					break;
+				include 'views/recipe/addStage.php';
+				break;
+			
+			case 'GET':
+				include 'views/recipe/addStage.php';
+				break;
 		}
 	}
-}	
+}

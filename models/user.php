@@ -38,16 +38,22 @@ class User extends Model_Base
 
 	public static function get_by_login($l)
 	{
-		if(is_string($l)) {
+		if(is_string($l)) 
+		{
 			$q = self::$_db->prepare('SELECT * FROM Utilisateur WHERE login = :l');
 			$q->bindValue(':l', $l, PDO::PARAM_STR);
 			$q->execute();
-			if($data = $q->fetch(PDO::FETCH_ASSOC)) {
+			if($data = $q->fetch(PDO::FETCH_ASSOC)) 
+			{
 				return new User($data);
-			} else {
+			} 
+			else 
+			{
 				return null;
 			}
-		} else {
+		} 
+		else 
+		{
 			return null;
 		}
 	}
@@ -57,21 +63,38 @@ class User extends Model_Base
 		$p = array();
 		$q = self::$_db->prepare('SELECT * FROM Utilisateur ORDER BY login');
 		$q->execute();
-		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
 			$p[] = new User($data);
 		}
 
 		return $p;
 	}
 
+	//renvoie tous les ingrédients de  l'utilisateur a chez lui
 	public function getIngredients()
 	{
 		$p = array();
 		$q = self::$_db->prepare('SELECT * FROM a_chez_lui where login = :log');
 		$q->bindValue(':log', $this->_login, PDO::PARAM_STR);
 		$q->execute();
-		while($row = $q->fetch(PDO::FETCH_ASSOC)) {
+		while($row = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
 			$p[] =$row;
+		}
+		return $p;
+	}
+
+	//renvoie toutes les nom et id des recettes de l'utilisateur
+	public function getRecipes()
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT nomRecette, autoIdRecette FROM recette where login = :log');
+		$q->bindValue(':log', $this->_login, PDO::PARAM_STR);
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
+			$p[] = $data;
 		}
 		return $p;
 	}
@@ -82,7 +105,8 @@ class User extends Model_Base
 	}
 	public function set_login($l)
 	{
-		if(is_string($l)) {
+		if(is_string($l)) 
+		{
 			$this->_login = $l;
 		}
 	}
@@ -93,7 +117,8 @@ class User extends Model_Base
 	}
 	public function set_nom($l)
 	{
-		if(is_string($l)) {
+		if(is_string($l)) 
+		{
 			$this->_nom = $l;
 		}
 	}
@@ -104,7 +129,8 @@ class User extends Model_Base
 	}
 	public function set_prenom($l)
 	{
-		if(is_string($l)) {
+		if(is_string($l)) 
+		{
 			$this->_prenom = $l;
 		}
 	}
@@ -115,12 +141,11 @@ class User extends Model_Base
 	}
 	public function set_adresse($l)
 	{
-		if(is_string($l)) {
+		if(is_string($l)) 
+		{
 			$this->_adresse = $l;
 		}
 	}
-
-
 
 	public function mot_de_passe()
 	{
@@ -128,14 +153,16 @@ class User extends Model_Base
 	}
 	public function set_mot_de_passe($p)
 	{
-		if(is_string($p)) {
+		if(is_string($p)) 
+		{
 			$this->_mot_de_passe = $p;
 		}
 	}
 
 	public function save()
 	{
-		if(!is_null($this->_login)) {
+		if(!is_null($this->_login)) 
+		{
 			$q = self::$_db->prepare('UPDATE Utilisateur SET mot_de_passe = :p WHERE login = :l');
 			$q->bindValue(':l', $this->_login, PDO::PARAM_STR);
 			$q->bindValue(':p', $this->_mot_de_passe, PDO::PARAM_STR);
@@ -145,11 +172,13 @@ class User extends Model_Base
 
 	public function delete()
 	{
-		if(!is_null($this->_login)) {
+		if(!is_null($this->_login)) 
+		{
 			$q = self::$_db->prepare('DELETE FROM Utilisateur WHERE login = :l');
 			$q->bindValue(':l', $this->_login);
 			$q->execute();
 			$this->_login = null;
 		}
 	}
+
 }

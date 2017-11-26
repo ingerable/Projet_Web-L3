@@ -40,16 +40,22 @@ class Ingredient extends Model_Base
 
 	public static function get_by_nomIngredient($ni)
 	{
-		if(is_string($ni)) {
+		if(is_string($ni)) 
+		{
 			$q = self::$_db->prepare('SELECT * FROM ingredient WHERE nomIngredient = :l');
 			$q->bindValue(':l', $ni, PDO::PARAM_STR);
 			$q->execute();
-			if($data = $q->fetch(PDO::FETCH_ASSOC)) {
+			if($data = $q->fetch(PDO::FETCH_ASSOC)) 
+			{
 				return new Ingredient($data);
-			} else {
+			} 
+			else 
+			{
 				return null;
 			}
-		} else {
+		} 
+		else 
+		{
 			return null;
 		}
 	}
@@ -59,7 +65,8 @@ class Ingredient extends Model_Base
 		$p = array();
 		$q = self::$_db->prepare('SELECT nomIngredient FROM ingredient ORDER BY nomIngredient');
 		$q->execute();
-		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
 			$p[] = $data;
 		}
 		return $p;
@@ -72,7 +79,8 @@ class Ingredient extends Model_Base
 	}
 	public function set_nomIngredient($l)
 	{
-		if(is_string($l)) {
+		if(is_string($l)) 
+		{
 			$this->_nomIngredient = $l;
 		}
 	}
@@ -83,7 +91,8 @@ class Ingredient extends Model_Base
 	}
 	public function set_calories($l)
 	{
-		if(is_numeric($l)) {
+		if(is_numeric($l)) 
+		{
 			$this->_calories = $l;
 		}
 	}
@@ -94,7 +103,8 @@ class Ingredient extends Model_Base
 	}
 	public function set_Lipides($l)
 	{
-		if(is_numeric($l)) {
+		if(is_numeric($l)) 
+		{
 			$this->_Lipides = $l;
 		}
 	}
@@ -105,7 +115,8 @@ class Ingredient extends Model_Base
 	}
 	public function set_Glucides($l)
 	{
-		if(is_numeric($l)) {
+		if(is_numeric($l)) 
+		{
 			$this->_Glucides = $l;
 		}
 	}
@@ -116,7 +127,8 @@ class Ingredient extends Model_Base
 	}
 	public function set_Proteines($p)
 	{
-		if(is_numeric($p)) {
+		if(is_numeric($p)) 
+		{
 			$this->_Proteines = $p;
 		}
 	}
@@ -128,7 +140,8 @@ class Ingredient extends Model_Base
 	}
 	public function set_Popularite($p)
 	{
-		if(is_numeric($p)) {
+		if(is_numeric($p)) 
+		{
 			$this->_Popularite = $p;
 		}
 	}
@@ -173,7 +186,8 @@ class Ingredient extends Model_Base
 
 	public function save()
 	{
-		if(!is_null($this->_nomIngredient)) {
+		if(!is_null($this->_nomIngredient)) 
+		{
 		$q = self::$_db->prepare('UPDATE ingredient SET nomIngredient = :ni, calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop 
 										 WHERE nomIngredient = :ni');
 		$q->bindValue(':ni', $u->nomIngredient(), PDO::PARAM_STR);
@@ -192,7 +206,8 @@ class Ingredient extends Model_Base
 
 	public function delete()
 	{
-		if(!is_null($this->_nomIngredient)) {
+		if(!is_null($this->_nomIngredient)) 
+		{
 			$q = self::$_db->prepare('DELETE FROM ingredient WHERE _nomIngredient = :ni');
 			$q->bindValue(':ni', $this->_nomIngredient);
 			$q->execute();

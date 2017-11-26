@@ -20,3 +20,8 @@ mets à jour les informations d'une recette dans la table recette.
 
 * Ou alors Balek on fait tout en php
 
+
+### Classes modèle
+
+* Faut-il créer des classes pour des tables comme contient, a_chez_lui ?
+
