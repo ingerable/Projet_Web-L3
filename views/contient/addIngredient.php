@@ -5,7 +5,7 @@ $allIngredient = ingredient::get_all_names();
 ?>
 
 <h1 style="text-align: center"> Add an ingredient</h1>
-<form action="<?=BASEURL?>/index.php/recipe/addIngredient" method="POST">	
+<form action="<?=BASEURL?>/index.php/contient/addIngredient" method="POST">	
 	<div class="formline">
 		<label>Recette </label>			
 		 <select name="idRecette">'
@@ -36,6 +36,11 @@ $allIngredient = ingredient::get_all_names();
 	<div class="formline">
 		<label>grammes</label>
 			<input type="number" name="grammes">
+	</div>
+
+	<div class="formline">
+		<label>Link for an illustration</label>
+		<input type="text" placeholder="link" name="illustration">
 	</div>
 
 	<div class="formline">

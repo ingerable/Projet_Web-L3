@@ -4,7 +4,7 @@ require_once 'models/model_base.php';
 
 
 /**
-* 
+*  classe pour les recettes
 */
 class recipe extends Model_Base
 {
@@ -258,6 +258,7 @@ class recipe extends Model_Base
 		return $minutes;
 	}
 
+	// tous les ingrédients de la recette
 	public function allIngredients()
 	{
 		$p = array();
@@ -282,7 +283,6 @@ class recipe extends Model_Base
 		}
 		return $p;
 	}
-
 
 	//renvoie toutes les recettes contenant le mot en argument
 	public static function get_Recipe_Like($m)

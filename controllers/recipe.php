@@ -87,33 +87,6 @@ public function __construct()
 			}
 	}
 
-	public function addIngredient()
-	{
-
-		switch ($_SERVER['REQUEST_METHOD']) 
-		{
-			case 'POST':
-				if(isset($_POST['idRecette']) && isset($_POST['nomIngredient']) && (isset($_POST['quantite']) || isset($_POST['grammes'])) )
-				{
-					// on vérifie que les 2 champs ne soient pas remplies
-					if($_POST['quantite']!='' && $_POST['grammes']!='')
-					{
-						message('error', 'You can either fill grammes or quantite but not both');
-					}
-					else
-					{
-						// créer une table contient ?
-					}
-				} 
-				include 'views/recipe/addIngredient.php';
-				break;
-			
-			case 'GET':
-				include 'views/recipe/addIngredient.php';
-				break;
-		}
-	}
-
 	public function addStage()
 	{
 		switch ($_SERVER['REQUEST_METHOD']) 
