@@ -26,7 +26,6 @@ class Contient extends Model_Base
 		$q->bindValue(':air', $c->autoIdRecette(), PDO::PARAM_STR);
 		$q->bindValue(':ni', $c->nomIngredient(), PDO::PARAM_STR);
 		$q->execute();
-		var_dump($c);
 		return $c;
 	}
 

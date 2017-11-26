@@ -21,7 +21,7 @@
 		echo '<ul>';
 		foreach($allRecipes as $r)
 		{	
-			echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().'</h2></li>';
+			echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().' by '.user::get_by_login($r->login())->get_full_name().'</h2></li>';
 		}
 		echo '</ul>';
 	}
@@ -31,7 +31,7 @@
 		echo '<ul>';
 		foreach($allRecipes as $r)
 		{	
-			echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().'</h2></li>';
+			echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().' by '.user::get_by_login($r->login())->get_full_name().'</h2></li>';
 		}
 		echo '</ul>';
 	}	

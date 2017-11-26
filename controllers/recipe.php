@@ -62,7 +62,7 @@ public function __construct()
 						'login'=>$login,
 						'note'=>0));
 					// on redirige l'utilisateur vers la page lui permettant de créer les ingrédients et étapes
-					message('success', 'Recipe successfully created, now you can add ingredients
+					message('success', $r->nomRecette().' successfully created, now you can add ingredients
 						and stages');
 				}
 				break;

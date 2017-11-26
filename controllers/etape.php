@@ -22,7 +22,6 @@ class Controller_Etape
 
 			if(isset($_POST['idRecette']) && isset($_POST['Ordre']) && isset($_POST['temps']) && isset($_POST['illustration']) && isset($_POST['description_etape']))
 			{
-				var_dump("hello");
 				$etape = Etape::get_etape($_POST['idRecette'], $_POST['Ordre']);
 				if(is_null($etape))
 				{

@@ -58,6 +58,14 @@ class User extends Model_Base
 		}
 	}
 
+	public function get_full_name()
+	{
+		if(!is_null($this->_login))
+		{
+			return $this->_nom.' '.$this->_prenom;
+		}
+	}
+
 	public static function get_all()
 	{
 		$p = array();
