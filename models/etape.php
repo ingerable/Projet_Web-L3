@@ -34,7 +34,31 @@ class Etape extends Model_Base
 	}
 
 
-	public function Ordre()
+	public static function get_etape($idRecette, $ordre)
+	{
+		if(is_numeric($idRecette) && is_numeric($ordre))
+		{
+			$q = self::$_db->prepare('SELECT * FROM etape WHERE autoIdRecette = :air AND Ordre = :o');
+			$q->bindValue(':air', $idRecette, PDO::PARAM_STR);
+			$q->bindValue(':o', $ordre, PDO::PARAM_STR);
+			$q->execute();
+			if($data = $q->fetch(PDO::FETCH_ASSOC)) 
+			{
+				return new Etape($data);
+			} 
+			else 
+			{
+				return null;
+			}
+		}
+		else
+		{
+			return null;
+		}
+			
+	}
+
+	public function ordre()
 	{
 		return $this->_Ordre;
 	}

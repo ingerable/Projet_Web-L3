@@ -39,11 +39,6 @@ $allIngredient = ingredient::get_all_names();
 	</div>
 
 	<div class="formline">
-		<label>Link for an illustration</label>
-		<input type="text" placeholder="link" name="illustration">
-	</div>
-
-	<div class="formline">
 		<label></label>
 		<input type="submit" value="Add">	
 	</div>

@@ -2,14 +2,14 @@
 $user = get_connected_user();
 $allYourRecipes = $user->getRecipes();
 ?>
-	<h1 style="text-align: center"> Add a stage</h1>
+<h1 style="text-align: center"> Add a stage</h1>
+<form action="<?=BASEURL?>/index.php/etape/addStage" method="POST">	
 	<div class="formline">
 		<label>Recette </label>			
-		 <select name="nomRecette">'
+		 <select name="idRecette">'
 		 <?php
 		 	foreach ($allYourRecipes as $key => $recipe) 
 			{
-
     			echo '<option value='.$allYourRecipes[$key]['autoIdRecette'].'>'.$allYourRecipes[$key]['nomRecette'].'</option>';
     		}?>
   			</select>
@@ -35,3 +35,4 @@ $allYourRecipes = $user->getRecipes();
 		<label></label>
 		<input type="submit" value="Add">	
 	</div>
+</form>

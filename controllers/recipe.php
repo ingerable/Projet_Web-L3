@@ -86,18 +86,4 @@ public function __construct()
 					break;
 			}
 	}
-
-	public function addStage()
-	{
-		switch ($_SERVER['REQUEST_METHOD']) 
-		{
-			case 'POST':
-				include 'views/recipe/addStage.php';
-				break;
-			
-			case 'GET':
-				include 'views/recipe/addStage.php';
-				break;
-		}
-	}
 }

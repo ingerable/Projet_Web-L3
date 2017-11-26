@@ -19,9 +19,7 @@ class Contient extends Model_Base
 
 	public static function create(array $data)
 	{
-		var_dump($data);
 		$c = new Contient($data);
-
 		$q = self::$_db->prepare('INSERT INTO contient SET quantite = :q, grammes = :g, autoIdRecette = :air, nomIngredient = :ni');
 		$q->bindValue(':q', $c->quantite(), PDO::PARAM_STR);
 		$q->bindValue(':g', $c->grammes(), PDO::PARAM_STR);

@@ -31,7 +31,7 @@ public function __construct()
 						$r = Contient::create(array(
 								'nomIngredient'=>$_POST['nomIngredient'],
 								'autoIdRecette'=>$_POST['idRecette'],
-								'quantite'=>$_POST['illustration'],
+								'quantite'=>$_POST['quantite'],
 								'grammes'=>$_POST['grammes']));
 						// on redirige l'utilisateur vers la page lui permettant de créer les ingrédients et étapes
 						message('success',$_POST['nomIngredient'].' successfully added in '.recipe::get_by_id($_POST['idRecette'])->nomRecette());
