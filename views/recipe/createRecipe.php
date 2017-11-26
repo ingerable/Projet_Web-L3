@@ -12,6 +12,16 @@
 	</div>
 
 	<div class="formline">
+		<label>Number of stages</label>
+		<input type="number" name="nbrStages" min="1">
+	</div>
+
+	<div class="formline">
+		<label>Number of ingredients</label>
+		<input type="number" name="nbrIngredients" min="1">
+	</div>
+
+	<div class="formline">
 		<label>Link for an illustration</label>
 		<input type="text" placeholder="link" name="illustration">
 	</div>

@@ -30,7 +30,6 @@ class Etape extends Model_Base
 		$q->bindValue(':de', $u->description_etape(), PDO::PARAM_STR);
 		$q->bindValue(':air', $u->autoIdRecette(), PDO::PARAM_STR);
 		$q->execute();
-
 		return $u;
 	}
 
@@ -41,7 +40,7 @@ class Etape extends Model_Base
 	}
 	public function set_Ordre($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_Ordre = $l;
 		}
 	}
@@ -52,7 +51,7 @@ class Etape extends Model_Base
 	}
 	public function set_temps($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_temps = $l;
 		}
 	}
@@ -85,7 +84,7 @@ class Etape extends Model_Base
 	}
 	public function set_autoIdRecette($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_autoIdRecette = $l;
 		}
 	}

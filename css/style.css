@@ -202,3 +202,12 @@ img {
 .difficulty{
 font-weight: bold;
 }
+
+.recipeIngredientSearch{
+	width:33%;
+       display:inline-block;
+}
+
+#recipeIngredientSearch .input{
+	vertical-align: middle;
+}

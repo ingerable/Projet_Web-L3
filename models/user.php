@@ -60,6 +60,19 @@ class User extends Model_Base
 		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
 			$p[] = new User($data);
 		}
+
+		return $p;
+	}
+
+	public function getIngredients()
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM a_chez_lui where login = :log');
+		$q->bindValue(':log', $this->_login, PDO::PARAM_STR);
+		$q->execute();
+		while($row = $q->fetch(PDO::FETCH_ASSOC)) {
+			$p[] =$row;
+		}
 		return $p;
 	}
 

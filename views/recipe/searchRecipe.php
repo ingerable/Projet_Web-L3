@@ -18,18 +18,24 @@
 	if($_SERVER['REQUEST_METHOD']=='POST')
 	{
 		$allRecipes = recipe::get_Recipe_Like($_POST["recipe"]);
+		echo '<ul>';
+		foreach($allRecipes as $r)
+		{	
+			echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().'</h2></li>';
+		}
+		echo '</ul>';
 	}
 	else if($_SERVER['REQUEST_METHOD']=='GET')
 	{
 		$allRecipes = recipe::get_all(); // on récupère toutes les recettes
+		echo '<ul>';
+		foreach($allRecipes as $r)
+		{	
+			echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().'</h2></li>';
+		}
+		echo '</ul>';
 	}	
 	
-	echo '<ul>';
-	foreach($allRecipes as $key => $r)
-	{
 	
-		echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().'</h2></li>';
-	}
-	echo '</ul>';
 ?>
 </ul>

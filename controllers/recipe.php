@@ -44,8 +44,10 @@ public function __construct()
 			case 'POST':
 				if (check_post_values(array('nomRecette', 'nbrPersonnes', 'illustration', 'difficulte',  'descriptif'))) 
 				{
+					//récupère nom auteur
 					$u = get_connected_user();
 					$login = $u->login();
+					//création de la recette
 					$r = recipe::create(array(
 						'nomRecette'=>$_POST['nomRecette'],
 						'nbrPersonnes'=>$_POST['nbrPersonnes'],
@@ -59,15 +61,44 @@ public function __construct()
 						'duree'=>0,
 						'login'=>$login,
 						'note'=>0));
-					message('success', 'Recipe'.$_POST['nomRecette'].' successfully created, now you can add ingredients
-						and stage');
-					//header('Location: '.BASEURL.'/index.php/recipe/signin');
+					// on redirige l'utilisateur vers la page lui permettant de créer les ingrédients et étapes
+					header('Location: '.BASEURL.'/index.php/recipe/addStageIngredients?nbrStages='.$_POST['nbrStages'].'&nbrIngredients='.$_POST['nbrIngredients']);				
 				}
 				break;
 			
 			case 'GET':
 				include 'views/recipe/createRecipe.php';
 				break;
+		}
+	}
+
+	public function searchRecipeIngredients()
+	{
+		switch ($_SERVER['REQUEST_METHOD']) 
+			{
+				case 'POST':
+					include 'views/recipe/searchRecipeIngredients.php';
+					break;
+				
+				case 'GET':
+					include 'views/recipe/searchRecipeIngredients.php';
+					break;
+			}
+	}
+
+	public function addStageIngredients()
+	{
+		switch ($_SERVER['REQUEST_METHOD']) 
+		{
+			case 'POST':
+					include 'views/recipe/addStageIngredients.php';
+					break;
+				
+				case 'GET':
+					include 'views/recipe/addStageIngredients.php';
+					message('success', 'Recipe successfully created, now you can add ingredients
+						and stage');
+					break;
 		}
 	}
 }	

@@ -54,13 +54,13 @@ class Ingredient extends Model_Base
 		}
 	}
 
-	public static function get_all()
+	public static function get_all_names()
 	{
 		$p = array();
-		$q = self::$_db->prepare('SELECT * FROM ingeredient ORDER BY nomIngredient');
+		$q = self::$_db->prepare('SELECT nomIngredient FROM ingredient ORDER BY nomIngredient');
 		$q->execute();
 		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
-			$p[] = new User($data);
+			$p[] = $data;
 		}
 		return $p;
 	}
@@ -83,7 +83,7 @@ class Ingredient extends Model_Base
 	}
 	public function set_calories($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_calories = $l;
 		}
 	}
@@ -94,7 +94,7 @@ class Ingredient extends Model_Base
 	}
 	public function set_Lipides($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_Lipides = $l;
 		}
 	}
@@ -105,7 +105,7 @@ class Ingredient extends Model_Base
 	}
 	public function set_Glucides($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_Glucides = $l;
 		}
 	}
@@ -116,7 +116,7 @@ class Ingredient extends Model_Base
 	}
 	public function set_Proteines($p)
 	{
-		if(is_string($p)) {
+		if(is_numeric($p)) {
 			$this->_Proteines = $p;
 		}
 	}
@@ -128,7 +128,7 @@ class Ingredient extends Model_Base
 	}
 	public function set_Popularite($p)
 	{
-		if(is_string($p)) {
+		if(is_numeric($p)) {
 			$this->_Popularite = $p;
 		}
 	}
