@@ -25,10 +25,50 @@ class Contient extends Model_Base
 		$q->bindValue(':g', $c->grammes(), PDO::PARAM_STR);
 		$q->bindValue(':air', $c->autoIdRecette(), PDO::PARAM_STR);
 		$q->bindValue(':ni', $c->nomIngredient(), PDO::PARAM_STR);
-		$q->execute();
-		return $c;
+		if($q->execute())
+		{
+			return $c;
+		}
+		return null;
 	}
 
+	//mets à jour les informations de la recette
+	public function updateRecette()
+	{
+		//on récupère l'ingrédient
+		$ingredient = Ingredient::get_by_nomIngredient($this->_nomIngredient);
+
+		//on récupère la recette
+		$recipe = recipe::get_by_id($this->_autoIdRecette);
+		
+
+		$q = self::$_db->prepare('UPDATE recette set calories = :cal, Lipides = :lip, Glucides = :gl, Proteines = :prot WHERE autoIdRecette = :air');
+
+		//on regarde quel unité est utilisé pour exprimer les quantité de l'ingrédient
+
+		//ici les grammes
+		if(is_null($this->_quantite) && !is_null($this->_grammes) )
+		{
+			$q->bindValue(':cal',$recipe->calories()+(($ingredient->calories()*$this->_grammes)/100), PDO::PARAM_STR);
+			$q->bindValue(':lip', $recipe->Lipides()+(($ingredient->Lipides()*$this->_grammes)/100), PDO::PARAM_STR);
+			$q->bindValue(':gl', $recipe->Glucides()+(($ingredient->Glucides()*$this->_grammes)/100), PDO::PARAM_STR);
+			$q->bindValue(':prot', $recipe->Proteines()+(($ingredient->Proteines()*$this->_grammes)/100), PDO::PARAM_STR);
+			$q->bindValue(':air', $this->_autoIdRecette, PDO::PARAM_STR);
+			$q->execute();
+		}
+		else if( !is_null($this->_quantite) && is_null($this->_grammes) )
+		{
+			$q->bindValue(':cal', $recipe->calories()+(($ingredient->calories()*$this->_quantite)), PDO::PARAM_STR);
+			$q->bindValue(':lip', $recipe->Lipides()+(($ingredient->Lipides()*$this->_quantite)), PDO::PARAM_STR);
+			$q->bindValue(':gl', $recipe->Glucides()+(($ingredient->Glucides()*$this->_quantite)), PDO::PARAM_STR);
+			$q->bindValue(':prot', $recipe->Proteines()+(($ingredient->Proteines()*$this->_quantite)), PDO::PARAM_STR);
+			$q->bindValue(':air', $this->_autoIdRecette, PDO::PARAM_STR);
+			$q->execute();
+		}
+
+	}
+
+	
 	public function quantite()
 	{
 		return $this->_quantite;

@@ -1,4 +1,3 @@
 <header>
-	<h1>Notes</h1>
-	<p>Take + Share</p>
+	<h1>Web L3</h1>
 </header>

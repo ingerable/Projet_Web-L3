@@ -33,6 +33,7 @@ public function __construct()
 								'autoIdRecette'=>$_POST['idRecette'],
 								'quantite'=>$_POST['quantite'],
 								'grammes'=>$_POST['grammes']));
+						$r->updateRecette();
 						// on redirige l'utilisateur vers la page lui permettant de créer les ingrédients et étapes
 						message('success',$_POST['nomIngredient'].' successfully added in '.recipe::get_by_id($_POST['idRecette'])->nomRecette());
 					}

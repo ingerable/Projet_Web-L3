@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD']=='GET')
 	<h1 class="text-center"> Search recipes with your ingredients</h1>
 	<form action="<?=BASEURL?>/index.php/recipe/searchRecipeIngredients" method="POST">
 		<div>
-			<h3 class="formline"> Vos Ingredients </h3>
+			<h3 class="formline"> Yours ingredients </h3>
 			 	<select name="selectedIngredients[]"  multiple="multiple" class="recipeIngredientSearch">
 			 	<?php 
 				foreach ($allIngredients as $key => $ing) 
@@ -18,8 +18,16 @@ if($_SERVER['REQUEST_METHOD']=='GET')
 			    }
 			 	?>
 	  			</select> 
-	  		<input type="submit" value="Search">
-		</div> <?php
+	  	<p>Sort by :</p>
+	  	<select name="sort">
+	  		<option value='name'>name</option>
+	  		<option value='temps'>preparing time</option>
+	  		<option value='calories'>calories</option>
+	  		<option value='difficulty'>difficulty</option>
+	  	</select>
+		<input type="submit" value="Search">
+		</div> </form>
+		<?php
 	}
 	else if($_SERVER['REQUEST_METHOD']=='POST')
 	{
@@ -30,7 +38,6 @@ if($_SERVER['REQUEST_METHOD']=='GET')
 			echo '<ul>';
 			foreach($recipes as $r)
 			{
-				
 				echo '<li><h2><a href="'.BASEURL.'/index.php/recipe/displayRecipe?idRecette='.$r->autoIdRecette().'">'.$r->nomRecette().' by '.user::get_by_login($r->login())->get_full_name().'</h2></li>';
 			}
 			echo '</ul>';	
