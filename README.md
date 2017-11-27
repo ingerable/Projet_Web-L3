@@ -45,5 +45,5 @@ mets à jour les informations d'une recette dans la table recette.
 
 -[ ] d) Ajouter  la  possibilité  de définir  un  planning  de  plats  à  cuisiner  (recettes)  pour  la semaine
 
--[ ] c) e) Ajouter  la  possibilité  de  rechercher  des recettes  par  ingrédients  et  de  trier  les résultats
+-[x] c) e) Ajouter  la  possibilité  de  rechercher  des recettes  par  ingrédients  et  de  trier  les résultats
 
