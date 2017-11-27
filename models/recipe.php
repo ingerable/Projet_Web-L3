@@ -291,24 +291,22 @@ class recipe extends Model_Base
 	{
 		$p = array(); // liste de recettes
 		$ingredients = array_values($ingredients)[0]; // on reçoit un tableau de tableau des ingrédients, on garde juste le tableau associative des ingrédients
-
-		$q = self::$_db->prepare('SELECT * FROM recette where autoIdRecette IN (select autoIdRecette from contient where nomIngredient IN ("'.implode('","',$ingredients).'")) ORDER BY :sort ASC');
+		$q = self::$_db->prepare('SELECT * FROM recette where autoIdRecette IN 
+								(select autoIdRecette from contient where nomIngredient IN 
+								("'.implode('","',$ingredients).'")) ORDER BY '.$sort.' DESC ;');
 		$q->bindValue(':sort', $sort, PDO::PARAM_STR);
-		var_dump($q);
-		var_dump($sort);
 		$q->execute();	
 		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
 		{
 			$r = new recipe($data);
 			if(!in_array($r, $p)) // on regarde si la recette n'est pas déja dans la liste
 			{
-				array_push($p,$r);	
+				array_push($p,$r);
+					
 			}
 		}			
 		return $p;
 	}
-
-
 
 	public function save()
 	{

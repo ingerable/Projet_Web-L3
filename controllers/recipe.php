@@ -78,7 +78,6 @@ public function __construct()
 		switch ($_SERVER['REQUEST_METHOD']) 
 			{
 				case 'POST':
-				var_dump($_POST['sort']);
 					include 'views/recipe/searchRecipeIngredients.php';
 					break;
 				
