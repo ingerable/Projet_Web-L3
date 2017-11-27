@@ -273,10 +273,10 @@ class recipe extends Model_Base
 	}
 
 	//renvoie toutes les recettes contenant le mot en argument
-	public static function get_Recipe_Like($m)
+	public static function get_Recipe_Like($m, $sort)
 	{
 		$p = array();
-		$q = self::$_db->prepare('SELECT * FROM recette where nomRecette LIKE :mot');
+		$q = self::$_db->prepare('SELECT * FROM recette where nomRecette LIKE :mot ORDER BY '.$sort.' DESC ;');
 		$q->bindValue(':mot', '%'.$m.'%', PDO::PARAM_STR);
 		$q->execute();
 		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
@@ -294,7 +294,6 @@ class recipe extends Model_Base
 		$q = self::$_db->prepare('SELECT * FROM recette where autoIdRecette IN 
 								(select autoIdRecette from contient where nomIngredient IN 
 								("'.implode('","',$ingredients).'")) ORDER BY '.$sort.' DESC ;');
-		$q->bindValue(':sort', $sort, PDO::PARAM_STR);
 		$q->execute();	
 		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
 		{

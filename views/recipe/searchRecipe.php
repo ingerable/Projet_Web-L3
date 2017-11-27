@@ -5,9 +5,18 @@
 		<div class ="formline">
 			<label for="recipe">Name of the recipe :</label>
 			<input type="text" name="recipe" id="recipe">
-		<div class="formline">
-			<input type="submit" name="Search" value="Search">
 		</div>
+		<div class ="formline">
+		<label for="sort">Sort by  :</label>
+	  	<select name="sort">
+	  		<option value='nomRecette'>name</option>
+	  		<option value='Duree'>preparing time</option>
+	  		<option value='calories'>calories</option>
+	  		<option value='difficulte'>difficulty</option>
+	  	</select>
+	  	<div class="formline">
+	  	<input type="submit" value="Search">
+	  	</div>
 		</div>
 	</div>
 </form>
@@ -17,7 +26,7 @@
 <?php
 	if($_SERVER['REQUEST_METHOD']=='POST')
 	{
-		$allRecipes = recipe::get_Recipe_Like($_POST["recipe"]);
+		$allRecipes = recipe::get_Recipe_Like($_POST["recipe"], $_POST["sort"]);
 		echo '<ul>';
 		foreach($allRecipes as $r)
 		{	
