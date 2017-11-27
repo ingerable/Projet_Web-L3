@@ -31,6 +31,7 @@ class Controller_Etape
 						'illustration'=>$_POST['illustration'],
 						'description_etape'=>$_POST['description_etape'],
 						'autoIdRecette'=>$_POST['idRecette']));
+					$etape->updateRecette();
 					message('success', 'Stage '.$etape->ordre().' successfully created for recipe'.recipe::get_by_id($etape->autoIdRecette())->nomRecette());
 				}
 				else

@@ -29,11 +29,22 @@ class Etape extends Model_Base
 		$q->bindValue(':i', $u->illustration(), PDO::PARAM_STR);
 		$q->bindValue(':de', $u->description_etape(), PDO::PARAM_STR);
 		$q->bindValue(':air', $u->autoIdRecette(), PDO::PARAM_STR);
-		$q->execute();
+		$q->execute();	
 		return $u;
 	}
 
 
+	//mets à jour la recette quand une étape est créer 
+	public function updateRecette()
+	{
+		$r = recipe::get_by_id($this->_autoIdRecette);
+		$q = self::$_db->prepare('UPDATE recette set Duree = :d WHERE autoIdRecette = :air');
+		$q->bindValue(':d', $r->duree()+$this->_temps, PDO::PARAM_STR);
+		$q->bindValue(':air', $r->autoIdRecette(), PDO::PARAM_STR);
+		$q->execute();	
+	}
+
+	
 	public static function get_etape($idRecette, $ordre)
 	{
 		if(is_numeric($idRecette) && is_numeric($ordre))

@@ -10,13 +10,15 @@
 	//all stages
 	$etapes = $recipe->allEtapes(); 
 
-
+	//recipe time
+	$minutes = ($recipe->duree() % 60);
+ 	$hour = floor(($recipe->duree() / 60));
 	
 echo '<article class="h-recipe">
   <h1 class="'.$recipe->nomRecette().'">'.$recipe->nomRecette().' by '.$author->prenom().' '. $author->nom().'</h1>
   <div class ="recipePicDiv">
   	<span class ="recipePicSpan"><img src="'.$recipe->illustration().'"illustration>
-  	 Takes '.$recipe->hours().' hours and '.$recipe->minutes().' minutes 
+  	 Takes '.$hour.' hours and '.$minutes.' minutes 
      for '.$recipe->nbrPersonnes().' persons </span>
   </div>
 

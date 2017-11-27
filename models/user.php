@@ -62,7 +62,7 @@ class User extends Model_Base
 	{
 		if(!is_null($this->_login))
 		{
-			return $this->_nom.' '.$this->_prenom;
+			return $this->_prenom.' '.$this->_nom;
 		}
 	}
 

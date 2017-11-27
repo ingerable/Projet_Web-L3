@@ -149,21 +149,22 @@ class recipe extends Model_Base
 
 	public function illustration()
 	{
-
-		if(is_null($this->_illustration))
+		return $this->_illustration;
+	}
+		
+	
+	public function set_illustration($l)
+	{
+		if(empty($this->_illustration) || is_null($this->_illustration)) 
 		{
-			return "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.ntochi.jp%2Fwp-content%2Fthemes%2Fntochi%2Fimages%2Fnoimage.gif%3Fc4e42d&f=1";
+			$this->_illustration = "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fvertex-uae.com%2Fimages%2Fno-image-found.jpg&f=1";
 		}
 		else
 		{
-			return $this->_illustration;
-		}
-		
-	}
-	public function set_illustration($l)
-	{
-		if(is_string($l)) {
-			$this->_illustration = $l;
+			if (is_string($l)) 
+			{
+				$this->_illustration = $l;
+			}
 		}
 	}
 
@@ -244,19 +245,6 @@ class recipe extends Model_Base
 		}
 	}
 
-	public function hours()
-	{
-		$sumStagesTime = $this->sumStagesTime(); 
- 		$hours = floor($sumStagesTime/60);
- 		return $hours;
-	}
-
-	public function minutes()
-	{
-		$sumStagesTime = $this->sumStagesTime(); 
-		$minutes = $sumStagesTime%60;
-		return $minutes;
-	}
 
 	// tous les ingrédients de la recette
 	public function allIngredients()
@@ -297,28 +285,30 @@ class recipe extends Model_Base
 		return $p;
 	}
 
-	//renvoie toutes les recettes contenant les ingrédients en arguments
-	public static function get_recipes_contains($ingredients)
+
+	//renvoie toutes les recettes contenant les ingrédients en arguments 1 et la méthode pour trier les résultats en argument 2
+	public static function get_recipes_contains($ingredients, $sort)
 	{
 		$p = array(); // liste de recettes
-		$ingredients = array_values($ingredients)[0]; // on reçoit un tableau de tableau des ingrédients, on garde juste le tableau des ingrédients
-		foreach ($ingredients as $key => $ing) 
-		{
-			$q = self::$_db->prepare('SELECT * FROM recette where autoIdRecette IN (select autoIdRecette from contient where nomIngredient = :nomI)');
-			$q->bindValue(':nomI', $ing, PDO::PARAM_STR);
-			$q->execute();
-			while($data = $q->fetch(PDO::FETCH_ASSOC)) 
-			{
-				$r = new recipe($data);
-				if(!in_array($r, $p)) // on regarde si la recette n'est pas déja dans la liste
-				{
-					array_push($p,$r);	
-				}
-			}			
-		}
+		$ingredients = array_values($ingredients)[0]; // on reçoit un tableau de tableau des ingrédients, on garde juste le tableau associative des ingrédients
 
+		$q = self::$_db->prepare('SELECT * FROM recette where autoIdRecette IN (select autoIdRecette from contient where nomIngredient IN ("'.implode('","',$ingredients).'")) ORDER BY :sort ASC');
+		$q->bindValue(':sort', $sort, PDO::PARAM_STR);
+		var_dump($q);
+		var_dump($sort);
+		$q->execute();	
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
+			$r = new recipe($data);
+			if(!in_array($r, $p)) // on regarde si la recette n'est pas déja dans la liste
+			{
+				array_push($p,$r);	
+			}
+		}			
 		return $p;
 	}
+
+
 
 	public function save()
 	{

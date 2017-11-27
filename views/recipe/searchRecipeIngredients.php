@@ -20,10 +20,10 @@ if($_SERVER['REQUEST_METHOD']=='GET')
 	  			</select> 
 	  	<p>Sort by :</p>
 	  	<select name="sort">
-	  		<option value='name'>name</option>
-	  		<option value='temps'>preparing time</option>
+	  		<option value='nomRecette'>name</option>
+	  		<option value='Duree'>preparing time</option>
 	  		<option value='calories'>calories</option>
-	  		<option value='difficulty'>difficulty</option>
+	  		<option value='difficulte'>difficulty</option>
 	  	</select>
 		<input type="submit" value="Search">
 		</div> </form>
@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD']=='GET')
 		if(!empty($_POST['selectedIngredients']))
 		{
 			$selectedIngredients[] = $_POST['selectedIngredients'];
-			$recipes = recipe::get_recipes_contains($selectedIngredients); // on récupère tout les recettes contenant les ingrédients selectionnés
+			$recipes = recipe::get_recipes_contains($selectedIngredients, $_POST['sort']); // on récupère tout les recettes contenant les ingrédients selectionnés
 			echo '<ul>';
 			foreach($recipes as $r)
 			{
