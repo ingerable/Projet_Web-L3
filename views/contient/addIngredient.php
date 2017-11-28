@@ -8,11 +8,11 @@ $allIngredient = ingredient::get_all_names();
 <form action="<?=BASEURL?>/index.php/contient/addIngredient" method="POST">	
 	<div class="formline">
 		<label>Recette </label>			
-		 <select name="idRecette">'
+		 <select name="idRecette">
 		 <?php
 		 	foreach ($allYourRecipes as $key => $recipe) 
 			{
-    			echo '<option value='.$allYourRecipes[$key]['autoIdRecette'].'>'.$allYourRecipes[$key]['nomRecette'].'</option>';
+    			echo '<option value='.$allYourRecipes[0]['autoIdRecette'].'>'.$allYourRecipes[0]['nomRecette'].'</option>';
     		}?>
   		  </select>
   	</div>
