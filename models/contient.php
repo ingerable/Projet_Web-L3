@@ -25,11 +25,9 @@ class Contient extends Model_Base
 		$q->bindValue(':g', $c->grammes(), PDO::PARAM_STR);
 		$q->bindValue(':air', $c->autoIdRecette(), PDO::PARAM_STR);
 		$q->bindValue(':ni', $c->nomIngredient(), PDO::PARAM_STR);
-		if($q->execute())
-		{
-			return $c;
-		}
-		return null;
+		$q->execute();
+		
+		return $c;
 	}
 
 	//mets à jour les informations de la recette
@@ -68,6 +66,18 @@ class Contient extends Model_Base
 
 	}
 
+	public static function get_Ingredients_Recipe($idRecipe)
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM contient where autoIdRecette = :air');
+		$q->bindValue(':air', $idRecipe, PDO::PARAM_STR);
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
+			$p[] = new Contient($data);
+		}
+		return $p;
+	}
 	
 	public function quantite()
 	{

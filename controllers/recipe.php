@@ -2,6 +2,7 @@
 
 require_once 'models/recipe.php';
 require_once 'models/user.php';
+require_once 'models/contient.php';
 
 class Controller_Recipe
 {

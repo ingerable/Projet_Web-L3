@@ -7,32 +7,14 @@
 * Est ce que l'utilisateur doit pouvoir modifier le nombre de personnes
   et donc les quantité des ingrédients s'adapte
 
-## Implémentations :
-
-### Informations sur la recette : 
-
-Laisser le choix à l'utilisateur de oui ou non rentrer les informations pour
-une recette manuellement. Sinon les informations sont calculées en fonction des 
-ingrédients d'une recette.
-
-* Créer un trigger qui après chaque insertion d'ingrédient dans la table contient
-mets à jour les informations d'une recette dans la table recette.
-
-* Ou alors Balek on fait tout en php
-
-
-### Classes modèle
-
-* Faut-il créer des classes pour des tables comme contient, a_chez_lui ?
-
-
-
 
 
 ## To Do List :+1:
 
 
 ## Sujet projet
+
+### Site de recettes.
 
 - [x] a) Ecrire  les  pages  du  site  permettant  à  un  utilisateur  de  créer  un  compte,  de  se 
 	connecter et de se déconnecter. Le mot depasse de l’utilisateur ne sera pas stocké tel quel 
@@ -47,3 +29,15 @@ mets à jour les informations d'une recette dans la table recette.
 
 - [x] c) e) Ajouter  la  possibilité  de  rechercher  des recettes  par  ingrédients  et  de  trier  les résultats
 
+### Administration du site de recettes.
+
+- [ ] a) Créer les pages permettant à un administrateur du site de se connecter de voir les utilisateurs, lesrecetteset les ingrédients. 
+
+- [ ] b) Permettre  à  un  administrateur  de  supprimer  ou  de  modifier  les  utilisateurs,  les recettes et les ingrédients.
+
+
+### TO DO 
+
+- [ ] 1. Illustration étape
+
+- [ ] 2. Champ supplémentaire pour determiner l'unité de mesure utilisé pour un ingrédient

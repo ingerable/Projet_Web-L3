@@ -29,15 +29,10 @@ $allIngredient = ingredient::get_all_names();
   	</div>
 
 	<div class="formline">
-		<label>Quantite :</label>
+		<label>Units/grammes :</label>
 			<input type="number" name="quantite">
 	</div>
 	
-	<div class="formline">
-		<label>grammes</label>
-			<input type="number" name="grammes">
-	</div>
-
 	<div class="formline">
 		<label></label>
 		<input type="submit" value="Add">	
