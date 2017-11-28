@@ -22,7 +22,7 @@ class User extends Model_Base
 	public static function create(array $data)
 	{
 		$u = new User($data);
-		$q = self::$_db->prepare('INSERT INTO utilisateur SET login = :l, mot_de_passe=:p, adresse = :m, nom = :nom, prenom = :pre');
+		$q = self::$_db->prepare('INSERT INTO Utilisateur SET login = :l, mot_de_passe=:p, adresse = :m, nom = :nom, prenom = :pre');
 		$q->bindValue(':l', $u->login(), PDO::PARAM_STR);
 		$q->bindValue(':p', $u->mot_de_passe(), PDO::PARAM_STR);
 		$q->bindValue(':m', $u->adresse(), PDO::PARAM_STR);
@@ -31,6 +31,10 @@ class User extends Model_Base
 		if($q->execute())
 		{
 			var_dump('sql query sucess !');
+		}
+		else
+		{
+			return NULL;
 		}
 
 		return $u;

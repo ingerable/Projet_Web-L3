@@ -28,12 +28,6 @@ if (!function_exists('user_connected')) {
 	}
 }
 
-if(!function_exists('root_connected')) {
-	function root_connected() {
-		return ($_SESSION['user_login']=='root');
-	}
-}
-
 if (!function_exists('get_connected_user')) {
 	function get_connected_user() {
 		if (isset($_SESSION['user_login'])) {
