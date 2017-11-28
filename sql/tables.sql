@@ -36,6 +36,7 @@ CREATE TABLE ingredient(
         Glucides      Float ,
         Proteines     Float ,
         Popularite    Int ,
+        isGrammes     Bool NOT NULL ,
         PRIMARY KEY (nomIngredient )
 )ENGINE=InnoDB;
 

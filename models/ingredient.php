@@ -14,6 +14,7 @@ class Ingredient extends Model_Base
 	private $_Glucides;
 	private $_Proteines;
 	private $_Popularite;
+	private $_isGrammes;
 
 
 	public function __construct(array $data)
@@ -25,13 +26,14 @@ class Ingredient extends Model_Base
 	{
 		$u = new Ingredient($data);
 
-		$q = self::$_db->prepare('INSERT INTO ingredient SET nomIngredient = :ni, calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop');
+		$q = self::$_db->prepare('INSERT INTO ingredient SET nomIngredient = :ni, calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop, isGrammes = :gram');
 		$q->bindValue(':ni', $u->nomIngredient(), PDO::PARAM_STR);
 		$q->bindValue(':c', $u->calories(), PDO::PARAM_STR);
 		$q->bindValue(':l', $u->Lipides(), PDO::PARAM_STR);
 		$q->bindValue(':g', $u->Glucides(), PDO::PARAM_STR);
 		$q->bindValue(':prot', $u->Proteines(), PDO::PARAM_STR);
 		$q->bindValue(':pop', $u->Popularite(), PDO::PARAM_STR);
+		$q->bindValue(':gram', $u->isGrammes(), PDO::PARAM_STR);
 		$q->execute();
 
 		return $u;
@@ -97,6 +99,15 @@ class Ingredient extends Model_Base
 		}
 	}
 
+	public function isGrammes()
+	{
+		return $this->_isGrammes;
+	}
+	public function set_isGrammes($l)
+	{
+			$this->_isGrammes = $l;
+	}
+
 	public function Lipides()
 	{
 		return $this->_Lipides;
@@ -146,49 +157,11 @@ class Ingredient extends Model_Base
 		}
 	}
 
-
-
-	//renvoie la mesure utilisé pour l'ingredient (sous type littéral)
-	public function mesure($autoIdRecette)
-	{
-		$p = array();
-		$q = self::$_db->prepare('SELECT * FROM contient where autoIdRecette = :idR AND nomIngredient = :nomI');
-		$q->bindValue(':idR', $autoIdRecette, PDO::PARAM_STR);
-		$q->bindValue(':nomI', $this->_nomIngredient, PDO::PARAM_STR);
-		$q->execute();
-		$p = $q->fetch(PDO::FETCH_ASSOC);			
-		$value;
-		
-		if(!is_null($p['quantite']) && is_null($p['grammes'])) // quantité non nulle et grammes nulle
-		{
-			if($p['quantite']>1)
-			{
-				$value = $p['quantite']." unités";
-			}
-			else
-			{
-				$value = $p['quantite']." unité";
-			}
-			
-		}
-		else if(is_null($p['quantite']) && !is_null($p['grammes'])) // quantité  nulle et grammes non nulle
-		{
-			$value = $p['grammes']." grammes";
-		}
-		else
-		{
-			$value = "undefined";
-		}
-
-		return $value;
-	}
-
-
 	public function save()
 	{
 		if(!is_null($this->_nomIngredient)) 
 		{
-		$q = self::$_db->prepare('UPDATE ingredient SET nomIngredient = :ni, calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop 
+		$q = self::$_db->prepare('UPDATE ingredient SET nomIngredient = :ni, calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop, isGrammes = :gram 
 										 WHERE nomIngredient = :ni');
 		$q->bindValue(':ni', $u->nomIngredient(), PDO::PARAM_STR);
 		$q->bindValue(':c', $u->calories(), PDO::PARAM_STR);
@@ -196,8 +169,8 @@ class Ingredient extends Model_Base
 		$q->bindValue(':g', $u->Glucides(), PDO::PARAM_STR);
 		$q->bindValue(':prot', $u->Proteines(), PDO::PARAM_STR);
 		$q->bindValue(':pop', $u->Popularite(), PDO::PARAM_STR);
+		$q->bindValue(':gram', $u->isGrammes(), PDO::PARAM_STR);
 		$q->execute();
-
 
 		return $u;
 		}

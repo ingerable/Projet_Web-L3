@@ -4,8 +4,8 @@
 	$ingredients = array();
 	$etapes = array();
 
-	//all ingredients
-	$ingredients = $recipe->allIngredients();
+	//all ingredients in the recipe
+	$ingContient = Contient::get_Ingredients_Recipe($recipe->autoIdRecette());
 
 	//all stages
 	$etapes = $recipe->allEtapes(); 
@@ -40,9 +40,20 @@ echo '<article class="h-recipe">
 
   echo '<h2> Ingredients </h2><ul>';
 
- foreach ($ingredients as $key => $ing) 
+ foreach ($ingContient as $key => $c) 
  {
- 	echo '<li class="p-ingredient">'.$ing->nomIngredient().' : '.$ing->mesure($recipe->autoIdRecette()).'</li>';
+ 	// on récupère l'ingrédient
+ 	$ingredient = Ingredient::get_by_nomIngredient($c->nomIngredient());
+ 	
+ 	if($ingredient->isGrammes())
+ 	{
+ 		echo '<li class="p-ingredient">'.$c->nomIngredient().' : '.$c->grammes().' grammes</li>';
+ 	}
+ 	else
+ 	{
+ 		echo '<li class="p-ingredient">'.$c->nomIngredient().' : '.$c->quantite().' units</li>';
+ 	}
+ 	
  }
  echo '</ul><div class="e-instructions">'; 
  
