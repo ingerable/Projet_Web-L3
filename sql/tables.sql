@@ -183,6 +183,8 @@ CREATE TABLE contient(
 
 CREATE TABLE planning(
         dateRealisation Date NOT NULL ,
+        startHour       Time NOT NULL ,
+        endHour         Time NOT NULL ,
         autoIdRecette   Int NOT NULL ,
         login           Varchar (25) NOT NULL ,
         PRIMARY KEY (autoIdRecette ,login )
