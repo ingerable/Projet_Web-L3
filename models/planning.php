@@ -25,8 +25,7 @@ class Planning extends model_base
 		$q->bindValue(':air', $p->autoIdRecette(), PDO::PARAM_STR);
 		$q->bindValue(':sh', $p->startHour(), PDO::PARAM_STR);
 		$q->bindValue(':eh', $p->endHour(), PDO::PARAM_STR);
-		
-		var_dump($q);
+
 		if($q->execute())
 		{
 

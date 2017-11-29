@@ -27,7 +27,7 @@ public function planningWeek()
 					if( $selectedDay > date("t")) //si on dépasse le dernier jour du mois on passe au mois suivant 
 					{
 						//on fabrique la date à laquel l'utilisateur veut réaliser sa recette à partir des variables post
-						$date = $selectedDay%date("t").'-'.($localdate[4]+2).'-'.($localdate[5]%100);
+						$date = '20'.($localdate[5]%100).'-'.($localdate[4]+2).'-'.$selectedDay%date("t");
 					}
 					else
 					{
@@ -43,9 +43,13 @@ public function planningWeek()
 					{
 						$endHour = $_POST['hour']+1;
 					}
-					else if($length%60>0) // si l'heure de fin n'est pas entière on l'arrondit (la vue n'affiche que les heures entières donc pas de minutes)
+					else if($length%60>0) 
 					{
 						$endHour = $_POST['hour']+floor($length/60)+1;
+					}
+					else
+					{
+						$endHour = $_POST['hour']+floor($length/60);
 					}
 						//on mets les heures en formes pour l'insertion sql
 						$startHour = $_POST['hour'].":00:00";

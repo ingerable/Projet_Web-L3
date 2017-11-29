@@ -73,9 +73,17 @@ $date = localtime();
 { 
     echo '<tr>';
       echo ' <th>'.$h.':00-'.($h+1).':00</th>';
-      for ($d=1; $d < 8 ; $d++) 
+      for ($d=0; $d < 7 ; $d++) 
       { 
-        echo  '<th>'.Planning::plannedRecipe(($date[3]-$date[6]+$d),($date[4]+1),('20'.($date[5]%100)),$h).'</th>'; 
+        $day = $date[3]-$date[6]+$d;
+        if( $day > date("t")) // si on dépasse le nombre de jours du mois
+        {
+          echo  '<th>'.Planning::plannedRecipe($day%date("t")+1,($date[4]+2),('20'.($date[5]%100)),$h+1).'</th>';
+        }
+        else
+        {
+          echo  '<th>'.Planning::plannedRecipe($day,($date[4]+1),('20'.($date[5]%100)),$h+1).'</th>';
+        }  
       }
     echo '</tr>';
  }
