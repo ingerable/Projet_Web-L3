@@ -133,12 +133,13 @@ class Planning extends model_base
 		}
 	}
 
-	public static function plannedRecipeObj($date,$hour, $login)
+	public static function plannedRecipeObj($date,$hour, $login, $autoIdRecette)
 	{
-		$q = self::$_db->prepare('SELECT * from planning where DATE(dateRealisation) = :dr AND login = :l AND startHour = :sh ;');
+		$q = self::$_db->prepare('SELECT * from planning where DATE(dateRealisation) = :dr AND login = :l AND startHour = :sh AND autoIdRecette = :air ;');
 		$q->bindValue(':dr', $date, PDO::PARAM_STR);
 		$q->bindValue(':l', $login, PDO::PARAM_STR);
 		$q->bindValue(':sh', $hour, PDO::PARAM_STR);
+		$q->bindValue(':air', $autoIdRecette, PDO::PARAM_STR);
 		$q->execute();
 		if($data = $q->fetch(PDO::FETCH_ASSOC)) 
 		{

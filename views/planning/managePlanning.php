@@ -42,14 +42,23 @@ $date = localtime();
 
       </select> 
    
-    <label for="idRecetteDelete">Recipe to delete :</label>     
-     <select name="idRecetteDelete">
+    <label for="recetteDeleteValues">Recipe to delete :</label>     
+     <select name="recetteDeleteValues">
     <?php
+
     foreach ($allPlannedRecipes as $key => $recipeP) 
     {
       $r = recipe::get_by_id($recipeP->autoIdRecette());
       
-      echo '<option value='.$r->autoIdRecette().'>'.$r->nomRecette().' by '.user::get_by_login($recipe->login())->get_full_name().' on '.$recipeP->dateRealisation().' at '.$recipeP->startHour().'</option>';
+      //valeurs qui permettront de supprimer la recette
+      $values = array();
+      $values[] = $r->autoIdRecette();
+      $values[] = $r->nomRecette();
+      $values[] = $recipeP->dateRealisation();
+      $values[] = $recipeP->startHour();
+
+
+      echo '<option value='.base64_encode(serialize($values)).'>'.$values[1].' by '.user::get_by_login($recipe->login())->get_full_name().' on '.$values[2].' at '.$values[3].'</option>';
     }?>
    </select>
     <input name="add-submit" type="submit" value="Add">
@@ -58,7 +67,7 @@ $date = localtime();
 
 
 
-<?php echo'<p> Week of the '.($date[3]-$date[6]).'/'.($date[4]+1).'/'.($date[5]%100).'  </p>'; ?> 
+<?php echo'<p> Week of the '.($date[3]-$date[6]+1).'/'.($date[4]+1).'/'.($date[5]%100).'  </p>'; ?> 
 
 <table id="planning">
   <tr>

@@ -21,8 +21,6 @@ public function addOrDelete()
 		case 'POST':
 		if(user_connected())
 		{
-			if(isset($_POST['day']) && isset($_POST['idRecette']) && isset($_POST['hour']))
-			{
 				/*
 				* On va s'occuper de construire la date en effectuant plusieurs vérifications,
 				* la date doit correspondre au format attendue pour la BDD (YYYY-MM-DD)
@@ -40,46 +38,48 @@ public function addOrDelete()
 					//on fabrique la date à laquel l'utilisateur veut réaliser sa recette à partir des variables post
 					$date = '20'.($localdate[5]%100).'-'.($localdate[4]+1).'-'.$selectedDay;	
 				}
-				//ensuite on calcule combien de temps va prendre la recette
-				$endHour;
-				$recipe = Recipe::get_by_id($_POST['idRecette']);
-				$length = $recipe->duree();
-				if($length<60)//recette de - de 60 min
-				{
-					$endHour = $_POST['hour']+1;
-				}
-				else if($length%60>0) 
-				{
-					$endHour = $_POST['hour']+floor($length/60)+1;
-				}
-				else
-				{
-					$endHour = $_POST['hour']+floor($length/60);
-				}
 
-				//on mets les heures en formes pour l'insertion sql
+				
+				//on mets en forme pour la suppresion/insertion
 				$startHour = $_POST['hour'].":00:00";
-				$endHour = $endHour.":00:00";
+				
 
 				/*
 				* Maintenant on va vérifier si on veut supprimer la recette ou l'ajouter
 				*/
 				if(isset($_POST['delete-submit']))
 				{
+					$values = unserialize(base64_decode($_POST['recetteDeleteValues']));
 					//on récupère l'objet recette
-					$rp = Planning::plannedRecipeObj($date,$startHour,get_connected_user()->login());
+					$rp = Planning::plannedRecipeObj($values[2],$values[3],get_connected_user()->login(),$values[0]);
+
 					if($rp!=null)
 					{
 						$rp->delete();
 					}
-					else
-					{
-						header('Location: '.BASEURL.'/index.php/planning/addOrDelete');
-					}
-					
 				}
 				else if(isset($_POST['add-submit']))
 				{
+					//ensuite on calcule combien de temps va prendre la recette
+					$endHour;
+					$recipe = Recipe::get_by_id($_POST['idRecette']);
+					$length = $recipe->duree();
+
+					if($length<60)//recette de - de 60 min
+					{
+						$endHour = $_POST['hour']+1;
+					}
+					else if($length%60>0) 
+					{
+						$endHour = $_POST['hour']+floor($length/60)+1;
+					}
+					else
+					{
+						$endHour = $_POST['hour']+floor($length/60);
+					}
+
+					$endHour = $endHour.":00:00";
+
 					$p = Planning::create(array(
 							"dateRealisation"=>$date,
 							"autoIdRecette"=>$_POST['idRecette'],
@@ -87,9 +87,6 @@ public function addOrDelete()
 							"startHour"=>$startHour,
 							"endHour"=>$endHour));
 				}	
-			}	
-				include 'views/planning/managePlanning.php';
-				break;
 		}
 		else
 		{
