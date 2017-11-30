@@ -187,7 +187,7 @@ CREATE TABLE planning(
         endHour         Time NOT NULL ,
         autoIdRecette   Int NOT NULL ,
         login           Varchar (25) NOT NULL ,
-        PRIMARY KEY (autoIdRecette ,login )
+        PRIMARY KEY (autoIdRecette ,login,dateRealisation )
 )ENGINE=InnoDB;
 
 ALTER TABLE recette ADD CONSTRAINT FK_recette_login FOREIGN KEY (login) REFERENCES Utilisateur(login);

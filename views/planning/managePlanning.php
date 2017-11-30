@@ -1,12 +1,15 @@
 <?php
+$user = get_connected_user();
+$login = $user->login();
 $allRecipes = Recipe::get_all();
+$allPlannedRecipes = Planning::get_user_all_recipe($login);
 $date = localtime();
 ?>
 
 
 
 <form action="<?=BASEURL?>/index.php/planning/addOrDelete" method="post">
-    <label for="idRecette">Recipe </label>     
+    <label for="idRecette">Recipe to add :</label>     
      <select name="idRecette">
      <?php
       foreach ($allRecipes as $key => $recipe) 
@@ -27,7 +30,6 @@ $date = localtime();
         <option value="7">Saturday</option>
       </select>
 
-
     <label for="day">Hour </label>
      <select name="hour">
      <?php
@@ -39,6 +41,17 @@ $date = localtime();
        ?>
 
       </select> 
+   
+    <label for="idRecetteDelete">Recipe to delete :</label>     
+     <select name="idRecetteDelete">
+    <?php
+    foreach ($allPlannedRecipes as $key => $recipeP) 
+    {
+      $r = recipe::get_by_id($recipeP->autoIdRecette());
+      
+      echo '<option value='.$r->autoIdRecette().'>'.$r->nomRecette().' by '.user::get_by_login($recipe->login())->get_full_name().' on '.$recipeP->dateRealisation().' at '.$recipeP->startHour().'</option>';
+    }?>
+   </select>
     <input name="add-submit" type="submit" value="Add">
   <input name="delete-submit" type="submit" value="delete"> 
 </form>
@@ -69,14 +82,16 @@ $date = localtime();
       for ($d=1; $d < 8 ; $d++) 
       { 
         $day = $date[3]-$date[6]+$d; // date du jour de la cellule actuelle du tableau
-
         if( $day > date("t")) // si on dépasse le nombre de jours du mois
         {
-          echo  '<th>'.Planning::plannedRecipe($day%date("t")+1,($date[4]+2),('20'.($date[5]%100)),$h+1).'</th>';
+          $date_p = '20'.($date[5]%100).'-'.($date[4]+2).'-'.$day%date("t");
+
+          echo  '<th>'.Planning::plannedRecipe($date_p,$h+1,$login).'</th>';
         }
         else
         {
-          echo  '<th>'.Planning::plannedRecipe($day,($date[4]+1),('20'.($date[5]%100)),$h+1).'</th>';
+          $date_p = '20'.($date[5]%100).'-'.($date[4]+1).'-'.$day;
+          echo  '<th>'.Planning::plannedRecipe($date_p,$h+1,$login).'</th>';
         }  
       }
     echo '</tr>';

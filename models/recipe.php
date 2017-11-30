@@ -155,7 +155,7 @@ class recipe extends Model_Base
 	
 	public function set_illustration($l)
 	{
-		if(empty($this->_illustration) || is_null($this->_illustration)) 
+		if(empty($l) || is_null($l)) 
 		{
 			$this->_illustration = "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fvertex-uae.com%2Fimages%2Fno-image-found.jpg&f=1";
 		}

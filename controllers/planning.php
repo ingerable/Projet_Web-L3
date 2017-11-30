@@ -66,12 +66,22 @@ public function addOrDelete()
 				*/
 				if(isset($_POST['delete-submit']))
 				{
+					//on récupère l'objet recette
+					$rp = Planning::plannedRecipeObj($date,$startHour,get_connected_user()->login());
+					if($rp!=null)
+					{
+						$rp->delete();
+					}
+					else
+					{
+						header('Location: '.BASEURL.'/index.php/planning/addOrDelete');
+					}
 					
 				}
 				else if(isset($_POST['add-submit']))
 				{
 					$p = Planning::create(array(
-							"date"=>$date,
+							"dateRealisation"=>$date,
 							"autoIdRecette"=>$_POST['idRecette'],
 							"login"=>(get_connected_user()->login()),
 							"startHour"=>$startHour,
@@ -103,27 +113,5 @@ public function addOrDelete()
 }
 
 
-public function delete()
-{
-	switch (variable) 
-	{
-		case 'GET':
-			# code...
-			break;
-
-		case 'POST':
-		if(user_connected())
-		{
-
-		}
-		else
-		{
-			header('Location: '.BASEURL);
-			break;
-		}
-
-	}
-		
-}
 
 }

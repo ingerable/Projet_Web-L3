@@ -5,7 +5,7 @@
 */
 class Planning extends model_base
 {
-	private $_date;
+	private $_dateRealisation;
 	private $_autoIdRecette;
 	private $_login;
 	private $_startHour;
@@ -21,7 +21,7 @@ class Planning extends model_base
 		$p = new Planning($data);
 		$q = self::$_db->prepare('INSERT INTO Planning SET dateRealisation = :d, autoIdRecette=:air, login = :l , startHour = :sh, endHour = :eh;');
 		$q->bindValue(':l', $p->login(), PDO::PARAM_STR);
-		$q->bindValue(':d', $p->date(), PDO::PARAM_STR);
+		$q->bindValue(':d', $p->dateRealisation(), PDO::PARAM_STR);
 		$q->bindValue(':air', $p->autoIdRecette(), PDO::PARAM_STR);
 		$q->bindValue(':sh', $p->startHour(), PDO::PARAM_STR);
 		$q->bindValue(':eh', $p->endHour(), PDO::PARAM_STR);
@@ -34,15 +34,39 @@ class Planning extends model_base
 		return null;
 	}
 
-	public function date()
+	public function delete()
 	{
-		return $this->_date;
+		$q = self::$_db->prepare('DELETE FROM planning WHERE dateRealisation = :d AND startHour = :sh AND autoIdRecette = :air AND login = :l');
+		$q->bindValue(':l', $this->login(), PDO::PARAM_STR);
+		$q->bindValue(':d', $this->dateRealisation(), PDO::PARAM_STR);
+		$q->bindValue(':air', $this->autoIdRecette(), PDO::PARAM_STR);
+		$q->bindValue(':sh', $this->startHour(), PDO::PARAM_STR);
+		$q->execute();
 	}
 
-	public function set_date($l)
+	public static function get_user_all_recipe($login)
+	{
+
+		$p = array();
+		$q = self::$_db->prepare('SELECT * from planning WHERE login = :l ;');
+		$q->bindValue(':l', $login, PDO::PARAM_STR);
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
+			$p[] = new Planning($data);
+		}
+		return $p;
+	}
+
+	public function dateRealisation()
+	{
+		return $this->_dateRealisation;
+	}
+
+	public function set_dateRealisation($l)
 	{
 		if(is_string($l))
-		$this->_date=$l;
+		$this->_dateRealisation=$l;
 	}
 
 	public function autoIdRecette()
@@ -89,24 +113,36 @@ class Planning extends model_base
 		$this->_endHour=$l;
 	}
 
-	public static function plannedRecipe($day, $month, $year, $hour)
+	public static function plannedRecipe($date,$hour, $login)
 	{
-		$date = $year.'-'.$month.'-'.$day;
-
-		$q = self::$_db->prepare('SELECT autoIdRecette from planning where DATE(dateRealisation) = :dr AND '.$hour.' BETWEEN HOUR(startHour) AND HOUR(endHour);');
+		$q = self::$_db->prepare('SELECT * from planning where DATE(dateRealisation) = :dr AND login = :l AND '.$hour.' BETWEEN HOUR(startHour) AND HOUR(endHour);');
 		$q->bindValue(':dr', $date, PDO::PARAM_STR);
+		$q->bindValue(':l', $login, PDO::PARAM_STR);
 		if($q->execute()) 
 		{
 			$autoIdRecette = $q->fetch(PDO::FETCH_ASSOC);
 			if($autoIdRecette == false)
 			{
-				return "free";
+				return "";
 			}
 			else
 			{
 				$r = Recipe::get_by_id($autoIdRecette['autoIdRecette']);
 				return $r->nomRecette();
 			}
+		}
+	}
+
+	public static function plannedRecipeObj($date,$hour, $login)
+	{
+		$q = self::$_db->prepare('SELECT * from planning where DATE(dateRealisation) = :dr AND login = :l AND startHour = :sh ;');
+		$q->bindValue(':dr', $date, PDO::PARAM_STR);
+		$q->bindValue(':l', $login, PDO::PARAM_STR);
+		$q->bindValue(':sh', $hour, PDO::PARAM_STR);
+		$q->execute();
+		if($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
+			return new Planning($data);
 		}
 	}
 
