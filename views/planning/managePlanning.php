@@ -4,7 +4,7 @@ $date = localtime();
 ?>
 
 
-<form action="<?=BASEURL?>/index.php/planning/planningWeek" method="post">
+<form action="<?=BASEURL?>/index.php/planning/add" method="post">
  <div class="formline">
     <label for="idRecette">Recipe </label>     
      <select name="idRecette">
@@ -32,7 +32,7 @@ $date = localtime();
 
 
   <div class="formline">
-    <label for="day">Day </label>
+    <label for="day">Hour </label>
      <select name="hour">
      <?php
       for ($i=8; $i < 20 ; $i++) 
@@ -47,10 +47,12 @@ $date = localtime();
 
 
   <div class="formline">
-    <label></label>
     <input type="submit" value="Add"> 
   </div>
 </form>
+
+
+
 
 <?php echo'<p> Week of the '.($date[3]-$date[6]).'/'.($date[4]+1).'/'.($date[5]%100).'  </p>'; ?> 
 
@@ -75,7 +77,8 @@ $date = localtime();
       echo ' <th>'.$h.':00-'.($h+1).':00</th>';
       for ($d=0; $d < 7 ; $d++) 
       { 
-        $day = $date[3]-$date[6]+$d;
+        $day = $date[3]-$date[6]+$d; // date du jour de la cellule actuelle du tableau
+
         if( $day > date("t")) // si on dépasse le nombre de jours du mois
         {
           echo  '<th>'.Planning::plannedRecipe($day%date("t")+1,($date[4]+2),('20'.($date[5]%100)),$h+1).'</th>';

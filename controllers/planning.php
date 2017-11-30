@@ -12,7 +12,7 @@ public function __construct()
 	{}
 
 
-public function planningWeek()
+public function add()
 {
 
 	switch ($_SERVER['REQUEST_METHOD']) 
