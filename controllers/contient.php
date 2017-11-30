@@ -19,6 +19,8 @@ public function __construct()
 		switch ($_SERVER['REQUEST_METHOD']) 
 		{
 			case 'POST':
+			if(user_connected())
+			{
 				if(isset($_POST['idRecette']) && isset($_POST['nomIngredient']) && isset($_POST['quantite']))
 				{
 						if(Ingredient::get_by_nomIngredient($_POST['nomIngredient'])->isGrammes())
@@ -47,10 +49,26 @@ public function __construct()
 				} 
 				include 'views/contient/addIngredient.php';
 				break;
+			}
+			else
+			{
+				header('Location: '.BASEURL);
+				break;
+			}
+				
 				
 			case 'GET':
+			if(user_connected())
+			{
 				include 'views/contient/addIngredient.php';
 				break;
+			}
+			else
+			{
+				header('Location: '.BASEURL);
+				break;
+			}
+				
 		}
 	}
 

@@ -211,3 +211,28 @@ font-weight: bold;
 #recipeIngredientSearch .input{
 	vertical-align: middle;
 }
+
+#planning {
+	margin-top: 1em;
+	margin-bottom: 1em;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#planning td, #planning th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#planning tr:nth-child(even){background-color: #f2f2f2;}
+
+#planning tr:hover {background-color: #ddd;}
+
+#planning th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}

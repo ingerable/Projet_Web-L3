@@ -43,6 +43,8 @@ public function __construct()
 		switch ($_SERVER['REQUEST_METHOD']) 
 		{
 			case 'POST':
+			if(user_connected())
+			{
 				if (check_post_values(array('nomRecette', 'nbrPersonnes', 'illustration', 'difficulte',  'descriptif'))) 
 				{
 					//récupère nom auteur
@@ -66,25 +68,55 @@ public function __construct()
 					message('success', $r->nomRecette().' successfully created, now you can add ingredients
 						and stages');
 				}
+			}
+			else
+			{
+				header('Location: '.BASEURL);
 				break;
+			}
 			
 			case 'GET':
-				include 'views/recipe/createRecipe.php';
-				break;
+				if(user_connected())
+				{
+					include 'views/recipe/createRecipe.php';
+					break;
+				}
+				else
+				{
+					header('Location: '.BASEURL);
+					break;
+				}	
+			}
 		}
-	}
 
 	public function searchRecipeIngredients()
 	{
 		switch ($_SERVER['REQUEST_METHOD']) 
 			{
 				case 'POST':
-					include 'views/recipe/searchRecipeIngredients.php';
-					break;
+					if(user_connected())
+					{
+						include 'views/recipe/searchRecipeIngredients.php';
+						break;	
+					}
+					else
+					{
+						header('Location: '.BASEURL);
+						break;	
+					}
+					
 				
 				case 'GET':
-					include 'views/recipe/searchRecipeIngredients.php';
-					break;
+					if(user_connected())
+					{
+						include 'views/recipe/searchRecipeIngredients.php';
+						break;
+					}
+					else
+					{
+						header('Location: '.BASEURL);
+						break;
+					}	
 			}
 	}
 

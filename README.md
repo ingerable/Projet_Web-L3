@@ -40,4 +40,6 @@
 
 - [ ] 1. Illustration étape
 
-- [ ] 2. Champ supplémentaire pour determiner l'unité de mesure utilisé pour un ingrédient
+- [x] 2. Champ supplémentaire pour determiner l'unité de mesure utilisé pour un ingrédient
+
+- [ ] 3. Vérifier que l'utilisateur soit bien connecté pour accéder à chaque page

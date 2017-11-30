@@ -7,12 +7,14 @@
 			<li><a href="<?=BASEURL?>/index.php/recipe/manageIngredient">Manage ingredients</a></li>
 			<li><a href="<?=BASEURL?>/index.php/user/signout">Sign out</a></li>
 		<?php }else if (user_connected()) { ?>
-		<li><a href="<?=BASEURL?>/index.php/recipe/searchRecipe">Search a recipe</a></li>
-		<li><a href="<?=BASEURL?>/index.php/recipe/createRecipe">Create a recipe</a></li>
+			<li><a href="<?=BASEURL?>/index.php/planning/addOrDelete">Planning </a></li>
+			<li><a href="<?=BASEURL?>/index.php/recipe/searchRecipe">Search a recipe</a></li>
+			<li><a href="<?=BASEURL?>/index.php/recipe/createRecipe">Create a recipe</a></li>
 			<li><a href="<?=BASEURL?>/index.php/contient/addIngredient">Add ingredient</a></li>
 			<li><a href="<?=BASEURL?>/index.php/etape/addStage">Add stage</a></li>		
 			<li><a href="<?=BASEURL?>/index.php/recipe/searchRecipeIngredients">Recipes with your ingredients</a></li>	
 			<li><a href="<?=BASEURL?>/index.php/user/signout">Sign out</a></li>
+
 		<?php } else { ?>
 			<li><a href="<?=BASEURL?>/index.php/user/signin">Sign in</a></li>
 			<li><a href="<?=BASEURL?>/index.php/recipe/searchRecipe">Search a recipe</a></li>

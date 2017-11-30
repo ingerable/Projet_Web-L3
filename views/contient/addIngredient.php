@@ -8,7 +8,7 @@ $allIngredient = ingredient::get_all_names();
 <form action="<?=BASEURL?>/index.php/contient/addIngredient" method="POST">	
 	<div class="formline">
 		<label>Recette </label>			
-		 <select name="idRecette">'
+		 <select name="idRecette">
 		 <?php
 		 	foreach ($allYourRecipes as $key => $recipe) 
 			{
