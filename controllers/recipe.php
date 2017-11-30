@@ -87,4 +87,15 @@ public function __construct()
 					break;
 			}
 	}
+
+
+	public function manageRecipe()
+	{
+		include 'views/user/manageRecipe.php';
+	}
+
+	public function manageIngredient()
+	{
+		include 'views/user/manageIngredient.php';
+	}
 }

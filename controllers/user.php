@@ -86,4 +86,21 @@ class Controller_User
 		header('Location: '.BASEURL);
 		exit;
 	}
+
+
+	public function manageUser()
+	{
+		include 'views/user/manageUser.php';
+	}
+
+	public function editUser()
+	{
+		switch($_SERVER['REQUEST_METHOD']) {
+			case 'POST':
+				break;
+			case 'GET':
+				include 'views/user/editUser.php';
+				break;
+		}
+	}
 }
