@@ -119,4 +119,15 @@ public function __construct()
 					}	
 			}
 	}
+
+
+	public function manageRecipe()
+	{
+		include 'views/user/manageRecipe.php';
+	}
+
+	public function manageIngredient()
+	{
+		include 'views/user/manageIngredient.php';
+	}
 }

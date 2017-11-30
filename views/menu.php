@@ -2,9 +2,9 @@
 	<ul>
 		<li><a href="<?=BASEURL?>">Home</a></li>
 		<?php if (root_connected()) { ?>
-			<li><a href="<?=BASEURL?>/index.php/user/manageuser">Manage users</a></li>
-			<li><a href="<?=BASEURL?>/index.php/recipe/createRecipe">Manage recipes</a></li>
-			<li><a href="<?=BASEURL?>/index.php/recipe/createRecipe">Manage ingredients</a></li>
+			<li><a href="<?=BASEURL?>/index.php/user/manageUser">Manage users</a></li>
+			<li><a href="<?=BASEURL?>/index.php/recipe/manageRecipe">Manage recipes</a></li>
+			<li><a href="<?=BASEURL?>/index.php/recipe/manageIngredient">Manage ingredients</a></li>
 			<li><a href="<?=BASEURL?>/index.php/user/signout">Sign out</a></li>
 		<?php }else if (user_connected()) { ?>
 			<li><a href="<?=BASEURL?>/index.php/planning/addOrDelete">Planning </a></li>
