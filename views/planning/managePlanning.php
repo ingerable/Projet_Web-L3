@@ -4,8 +4,8 @@ $date = localtime();
 ?>
 
 
-<form action="<?=BASEURL?>/index.php/planning/add" method="post">
- <div class="formline">
+
+<form action="<?=BASEURL?>/index.php/planning/addOrDelete" method="post">
     <label for="idRecette">Recipe </label>     
      <select name="idRecette">
      <?php
@@ -14,10 +14,8 @@ $date = localtime();
           echo '<option value='.$recipe->autoIdRecette().'>'.$recipe->nomRecette().' by '.user::get_by_login($recipe->login())->get_full_name().'</option>';
         }?>
         </select>
-  </div>
 
 
-  <div class="formline">
     <label for="day">Day </label>     
      <select name="day">
         <option value="1">Monday</option>
@@ -28,29 +26,22 @@ $date = localtime();
         <option value="6">Sunday</option>
         <option value="7">Saturday</option>
       </select>
-  </div>
 
 
-  <div class="formline">
     <label for="day">Hour </label>
      <select name="hour">
      <?php
-      for ($i=8; $i < 20 ; $i++) 
+      for ($i=8; $i < 24 ; $i++) 
       { 
         $time = $i.':00-'.($i+1).':00';
         echo' <option value="'.$i.'">'.$time.'</option>';
       }
        ?>
 
-      </select>
-  </div>  
-
-
-  <div class="formline">
-    <input type="submit" value="Add"> 
-  </div>
+      </select> 
+    <input name="add-submit" type="submit" value="Add">
+  <input name="delete-submit" type="submit" value="delete"> 
 </form>
-
 
 
 
@@ -75,7 +66,7 @@ $date = localtime();
 { 
     echo '<tr>';
       echo ' <th>'.$h.':00-'.($h+1).':00</th>';
-      for ($d=0; $d < 7 ; $d++) 
+      for ($d=1; $d < 8 ; $d++) 
       { 
         $day = $date[3]-$date[6]+$d; // date du jour de la cellule actuelle du tableau
 
