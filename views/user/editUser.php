@@ -6,7 +6,15 @@ echo '<form action="'.BASEURL.'/index.php/user/editUser" method="post">
 	<div>
 		<div class ="formline">
 			<label for="login">Login :</label>
-			<input type="text" name="login" id="login" value="'.$user->login().'">
+			<input type="text" name="login" readonly="true" id="login" value="'.$user->login().'">
+		</div>
+		<div class ="formline">
+			<label for="mdp">Password :</label>
+			<input type="password" name="mdp" id="mdp">
+		</div>
+		<div class ="formline">
+			<label for="mdpc">Confirme password :</label>
+			<input type="password" name="mdpc" id="mdpc">
 		</div>
 		<div class ="formline">
 			<label for="adresse">Mail :</label>
@@ -21,12 +29,11 @@ echo '<form action="'.BASEURL.'/index.php/user/editUser" method="post">
 			<input type="text" name="prenom" id="prenom" value="'.$user->prenom().'">
 		</div>
 	</div>
-	<input type="submit" value="Submit">
-	<form action="'.BASEURL.'/index.php/user/manageUser"> 
-		<input type="submit" value="Cancel"> 
-	</form>
-	<button href="'.BASEURL.'/index.php/user/deleteUser?login='.$user->login().'"> Delete user </button>
-</form>'
+	<input type="submit" name="submit" value="Submit">
+	<input type="submit" name="cancel" value="Cancel"> 
+	<input type="submit" name="delete" value="Delete user">
+</form>
+'
 
 
 

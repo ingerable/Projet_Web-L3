@@ -97,6 +97,60 @@ class Controller_User
 	{
 		switch($_SERVER['REQUEST_METHOD']) {
 			case 'POST':
+				if(isset($_POST['cancel']))
+				{
+					header('Location: '.BASEURL.'/index.php/user/manageUser');
+				}
+				else if(isset($_POST['delete']))
+				{
+					if($_POST['login']!='root')
+					{
+						$u=User::get_by_login($_POST['login']);
+						$u->delete();
+						if($u->login()==null) // si delete ok
+						{
+							message('success', 'User successfully deleted');
+							header('Location: '.BASEURL.'/index.php/user/manageUser');
+						}
+						else
+						{
+							message('error', 'Error while deleting user');
+							header('Location: '.BASEURL.'/index.php/user/manageUser');
+						}
+					}
+					else
+					{
+						message('error', 'Cannot delete root !');
+						header('Location: '.BASEURL.'/index.php/user/manageUser');
+					}
+				}
+				else
+				{
+					if($_POST['mdp']!='' && $_POST['mdpc']!='' && $_POST['adresse']!='' && $_POST['nom']!='' && $_POST['prenom']!='')
+					{
+						if($_POST['mdp']==$_POST['mdpc'])
+						{
+							$u=User::get_by_login($_POST['login']);
+							$u->set_nom($_POST['nom']);
+							$u->set_prenom($_POST['prenom']);
+							$u->set_adresse($_POST['adresse']);
+							$u->set_mot_de_passe(sha1($_POST['mdp']));
+							$u->save();
+							message('success', 'Informations changed');
+							header('Location: '.BASEURL.'/index.php/user/manageUser');
+						}
+						else
+						{
+							message('error', 'Passwords dont match');
+							header('Location: '.BASEURL.'/index.php/user/editUser?login='.$_POST['login']);
+						}
+					}
+					else
+					{
+						message('error', 'Complete all fields');
+						header('Location: '.BASEURL.'/index.php/user/editUser?login='.$_POST['login']);
+					}
+				}
 				break;
 			case 'GET':
 				include 'views/user/editUser.php';

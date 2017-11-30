@@ -175,9 +175,12 @@ class User extends Model_Base
 	{
 		if(!is_null($this->_login)) 
 		{
-			$q = self::$_db->prepare('UPDATE Utilisateur SET mot_de_passe = :p WHERE login = :l');
-			$q->bindValue(':l', $this->_login, PDO::PARAM_STR);
-			$q->bindValue(':p', $this->_mot_de_passe, PDO::PARAM_STR);
+			$q = self::$_db->prepare('UPDATE Utilisateur SET mot_de_passe = :p, adresse = :m, nom = :nom, prenom = :pre WHERE login = :l');
+			$q->bindValue(':l', $this->login(), PDO::PARAM_STR);
+			$q->bindValue(':p', $this->mot_de_passe(), PDO::PARAM_STR);
+			$q->bindValue(':m', $this->adresse(), PDO::PARAM_STR);
+			$q->bindValue(':pre', $this->prenom(), PDO::PARAM_STR);
+			$q->bindValue(':nom', $this->nom(), PDO::PARAM_STR);
 			$q->execute();
 		}
 	}
