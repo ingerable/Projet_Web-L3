@@ -130,6 +130,61 @@ public function __construct()
 	{
 		switch($_SERVER['REQUEST_METHOD']) {
 			case 'POST':
+				if(isset($_POST['cancel']))
+				{
+					header('Location: '.BASEURL.'/index.php/recipe/manageRecipe');
+				}
+				else if(isset($_POST['delete']))
+				{
+					$r=Recipe::get_by_id($_POST['idRecette']);
+					$r->delete();
+					if($r->autoIdRecette()==null) // si delete ok
+					{
+						message('success', 'Recipe successfully deleted');
+						header('Location: '.BASEURL.'/index.php/recipe/manageRecipe');
+						exit;
+					}
+					else
+					{
+						message('error', 'Error while deleting recipe');
+						header('Location: '.BASEURL.'/index.php/recipe/manageRecipe');
+						exit;
+					}
+				}
+				else
+				{
+					if($_POST['nomRecette']!='' && $_POST['nbrPersonnes']!='' && $_POST['calories']!='' && $_POST['proteines']!='' && $_POST['lipides']!='' && $_POST['glucides']!='' && $_POST['illustration']!='' && $_POST['descriptif']!='')
+					{
+						$r=Recipe::get_by_id($_POST['idRecette']);
+						$r->set_nomRecette($_POST['nomRecette']);
+						$r->set_nbrPersonnes($_POST['nbrPersonnes']);
+						$r->set_calories($_POST['calories']);
+						$r->set_Proteines($_POST['proteines']);
+						$r->set_lipides($_POST['lipides']);
+						$r->set_Glucides($_POST['glucides']);
+						$r->set_illustration($_POST['illustration']);
+						$r->set_descriptif($_POST['descriptif']);
+						$r->set_difficulte($_POST['difficulte']);
+						if(is_null($r->save()))
+						{
+							//message('error', 'Error while updating database');
+							//header('Location: '.BASEURL.'/index.php/recipe/manageRecipe');
+							//exit;
+						}
+						else
+						{
+							message('success', 'Informations changed');
+							header('Location: '.BASEURL.'/index.php/recipe/manageRecipe');
+							exit;
+						}
+					}
+					else
+					{
+						message('error', 'Complete all fields');
+						header('Location: '.BASEURL.'/index.php/recipe/editRecipe?idRecette='.$_POST['idRecette']);
+						exit;
+					}
+				}
 				break;
 			case 'GET':
 				include 'views/recipe/editRecipe.php';

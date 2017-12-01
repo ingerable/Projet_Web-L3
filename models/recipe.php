@@ -225,7 +225,7 @@ class recipe extends Model_Base
 
 	public function proteines()
 	{
-		return $this->_Glucides;
+		return $this->_Proteines;
 	}
 	public function set_Proteines($l)
 	{
@@ -310,22 +310,31 @@ class recipe extends Model_Base
 	public function save()
 	{
 		if(!is_null($this->_autoIdRecette)) {
-			$q = self::$_db->prepare('UPDATE recette SET nomRecette = :nr, descriptif = :des, difficulte = :dif, calories = :cal, nbrPersonnes = :nbrP, Lipides = :l, Glucides = :g, Proteines = :prot, Duree = :d, login = :log , illustration =: ill, note = :n WHERE autoIdRecette = :id');
+			$q = self::$_db->prepare('UPDATE recette SET nomRecette = :nr, descriptif = :des, difficulte = :dif, calories = :cal, nbrPersonnes = :nbrP, Lipides = :l, Glucides = :g, Proteines = :prot, Duree = :d, login = :log , illustration = :ill, note = :n WHERE autoIdRecette = :id');
 			$q->bindValue(':nr', $this->_nomRecette, PDO::PARAM_STR);
-			$q->bindValue(':des', $this->_descriptif, PDO::PARAM_INT);
-			$q->bindValue(':dif', $this->_difficulte, PDO::PARAM_STR);
-			$q->bindValue(':cal', $this->_calories, PDO::PARAM_STR);
+			$q->bindValue(':des', $this->_descriptif, PDO::PARAM_STR);
+			$q->bindValue(':dif', $this->_difficulte, PDO::PARAM_INT);
+			$q->bindValue(':cal', $this->_calories, PDO::PARAM_INT);
 			$q->bindValue(':nbrP', $this->_nbrPersonnes, PDO::PARAM_INT);
 			$q->bindValue(':l', $this->_lipides, PDO::PARAM_STR);
 			$q->bindValue(':g', $this->_Glucides, PDO::PARAM_STR);
-			$q->bindValue(':prot', $this->_Proteines, PDO::PARAM_INT);
+			$q->bindValue(':prot', $this->_Proteines, PDO::PARAM_STR);
 			$q->bindValue(':d', $this->_duree, PDO::PARAM_STR);
-			$q->bindValue(':log', $this->_login, PDO::PARAM_INT);
-			$q->bindValue(':ill', $this->_illustration, PDO::PARAM_INT);
+			$q->bindValue(':log', $this->_login, PDO::PARAM_STR);
+			$q->bindValue(':ill', $this->_illustration, PDO::PARAM_STR);
 			$q->bindValue(':n', $this->_note, PDO::PARAM_INT);
-			$q->bindValue(':id', $this->_autoIdRecette, PDO::PARAM_STR);
+			$q->bindValue(':id', $this->_autoIdRecette, PDO::PARAM_INT);
 					
-			$q->execute();
+			if($q->execute())
+			{
+				var_dump('sql query sucess !');
+			}
+			else
+			{
+				echo "\nPDO::errorInfo():\n" ;
+   				print_r($q->errorInfo());
+				return NULL;
+			}
 		}
 	}
 
