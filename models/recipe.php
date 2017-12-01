@@ -33,7 +33,7 @@ class recipe extends Model_Base
 		$u = new Recipe($data);
 
 		$q = self::$_db->prepare('INSERT INTO recette SET login = :l, nomRecette = :np, descriptif = :d, calories = :c, difficulte = :dif, note = :n, nbrPersonnes = :nbP, 
-								lipides = :lip, Glucides = :g, Proteines = :prot, duree = :d,
+								lipides = :lip, Glucides = :g, Proteines = :prot, duree = :du,
 								   autoIdRecette = :air, illustration = :ill');
 		$q->bindValue(':l', $u->login(), PDO::PARAM_STR);
 		$q->bindValue(':np', $u->nomRecette(), PDO::PARAM_STR);
@@ -45,7 +45,7 @@ class recipe extends Model_Base
 		$q->bindValue(':lip', $u->lipides(), PDO::PARAM_STR);
 		$q->bindValue(':g' ,$u->glucides(),PDO::PARAM_STR);
 		$q->bindValue(':prot', $u->Proteines(), PDO::PARAM_STR);
-		$q->bindValue(':d', $u->duree(), PDO::PARAM_STR);
+		$q->bindValue(':du', $u->duree(), PDO::PARAM_STR);
 		$q->bindValue(':air', $u->autoIdRecette(), PDO::PARAM_STR);
 		$q->bindValue(':ill', $u->illustration(), PDO::PARAM_STR);			
 		$q->execute();
