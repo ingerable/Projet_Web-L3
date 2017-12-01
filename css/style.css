@@ -236,3 +236,8 @@ font-weight: bold;
     background-color: #4CAF50;
     color: white;
 }
+
+.directive{
+	font-family: italic;
+	color:red;
+}

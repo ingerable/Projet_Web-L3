@@ -50,7 +50,7 @@ $date = localtime();
     {
       $r = recipe::get_by_id($recipeP->autoIdRecette());
       
-      //valeurs qui permettront de supprimer la recette
+      //valeurs qui permettront de supprimer la recette, on va sérialiser le tableau puis l'envoyer
       $values = array();
       $values[] = $r->autoIdRecette();
       $values[] = $r->nomRecette();
