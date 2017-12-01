@@ -21,7 +21,7 @@ class Controller_Etape
 			case 'POST':
 			if(user_connected())
 			{
-				if(isset($_POST['idRecette']) && isset($_POST['Ordre']) && isset($_POST['temps']) && isset($_POST['illustration']) && isset($_POST['description_etape']))
+				if(check_post_values(array('idRecette','Ordre','temps','illustration','description_etape')) && empty_post_values(array('Ordre','temps','description_etape')))
 				{
 					$etape = Etape::get_etape($_POST['idRecette'], $_POST['Ordre']);
 					if(is_null($etape))
@@ -38,7 +38,15 @@ class Controller_Etape
 					else
 					{
 						message('error','Stage '.$_POST['Ordre'].' already exist for recipe'.recipe::get_by_id($_POST['idRecette'])->nomRecette());
+						header('Location: '.BASEURL.'/index.php/etape/addStage');
+						exit;
 					}
+				}
+				else
+				{
+					message('error','Please fill Order, time and description');
+					header('Location: '.BASEURL.'/index.php/etape/addStage');
+					exit;
 				}
 			}
 			else
