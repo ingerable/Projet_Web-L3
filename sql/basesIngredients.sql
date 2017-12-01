@@ -1,0 +1,3 @@
+INSERT INTO `ingredient` (`nomIngredient`, `calories`, `Lipides`, `Glucides`, `Proteines`, `Popularite`, `isGrammes`) VALUES ('sel', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `ingredient` (`nomIngredient`, `calories`, `Lipides`, `Glucides`, `Proteines`, `Popularite`, `isGrammes`) VALUES ('poivre', '0', '0', '0', '0', NULL, '1');
+INSERT INTO `ingredient` (`nomIngredient`, `calories`, `Lipides`, `Glucides`, `Proteines`, `Popularite`, `isGrammes`) VALUES ('farine de blé', '360', '1.5', '76', '10', NULL, '1');

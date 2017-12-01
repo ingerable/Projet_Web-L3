@@ -21,9 +21,10 @@ public function __construct()
 			case 'POST':
 			if(user_connected())
 			{
-				if(isset($_POST['idRecette']) && isset($_POST['nomIngredient']) && isset($_POST['quantite']))
+				if(check_post_values(array('nomIngredient', 'idRecette', 'quantite')) && empty_post_values(array('nomIngredient', 'idRecette', 'quantite')))
 				{
-						if(Ingredient::get_by_nomIngredient($_POST['nomIngredient'])->isGrammes())
+					$i = Ingredient::get_by_nomIngredient($_POST['nomIngredient']);
+						if($i->isGrammes())
 						{
 							$r = Contient::create(array(
 								'nomIngredient'=>$_POST['nomIngredient'],
@@ -47,6 +48,12 @@ public function __construct()
 						// on redirige l'utilisateur vers la page lui permettant de créer les ingrédients et étapes
 						message('success',$_POST['nomIngredient'].' successfully added in '.recipe::get_by_id($_POST['idRecette'])->nomRecette());
 				} 
+				else
+				{
+					message('error','Missing fields');
+					header('Location: '.BASEURL.'/index.php/contient/addIngredient');
+					exit;
+				}
 				include 'views/contient/addIngredient.php';
 				break;
 			}

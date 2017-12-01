@@ -12,7 +12,7 @@ $allIngredient = ingredient::get_all_names();
 		 <?php
 		 	foreach ($allYourRecipes as $key => $recipe) 
 			{
-    			echo '<option value='.$allYourRecipes[$key]['autoIdRecette'].'>'.$allYourRecipes[$key]['nomRecette'].'</option>';
+    			echo '<option value="'.$allYourRecipes[$key]['autoIdRecette'].'">'.$allYourRecipes[$key]['nomRecette'].'</option>';
     		}?>
   		  </select>
   	</div>
@@ -23,7 +23,8 @@ $allIngredient = ingredient::get_all_names();
 		 <?php
 		 	foreach ($allIngredient as $key => $ingredient) 
 			{
-    			echo '<option value='.$allIngredient[$key]['nomIngredient'].'>'.$allIngredient[$key]['nomIngredient'].'</option>';
+				
+    			echo '<option value="'.$allIngredient[$key]['nomIngredient'].'">'.$allIngredient[$key]['nomIngredient'].'</option>';
     		}?>
   		  </select>
   	</div>

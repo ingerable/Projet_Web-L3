@@ -4,6 +4,9 @@ $login = $user->login();
 $allRecipes = Recipe::get_all();
 $allPlannedRecipes = Planning::get_user_all_recipe($login);
 $date = localtime();
+$day = date('w');
+$week_start = date('d', strtotime('-'.$day.' days'));
+$month_start = date('m', strtotime('-'.$day.' days'));
 ?>
 
 
@@ -30,7 +33,7 @@ $date = localtime();
         <option value="7">Saturday</option>
       </select>
 
-    <label for="day">Hour </label>
+    <label for="hour">Hour </label>
      <select name="hour">
      <?php
       for ($i=8; $i < 24 ; $i++) 
@@ -67,7 +70,7 @@ $date = localtime();
 
 
 
-<?php echo'<p> Week of the '.($date[3]-$date[6]+1).'/'.($date[4]+1).'/'.($date[5]%100).'  </p>'; ?> 
+<?php echo'<p> Week of the '.($week_start+1).'/'.($date[4]+1).'/'.($date[5]%100).'  </p>'; ?> 
 
 <table id="planning">
   <tr>
@@ -83,6 +86,8 @@ $date = localtime();
  <tr>
 
  <?php
+//le jour du dernier mois, utilisé pour savoir
+$daysLastM = date("j", strtotime("last day of previous month"));
 
  for ($h=8; $h<24 ; $h++) 
 { 
@@ -90,16 +95,17 @@ $date = localtime();
       echo ' <th>'.$h.':00-'.($h+1).':00</th>';
       for ($d=1; $d < 8 ; $d++) 
       { 
-        $day = $date[3]-$date[6]+$d; // date du jour de la cellule actuelle du tableau
-        if( $day > date("t")) // si on dépasse le nombre de jours du mois
-        {
-          $date_p = '20'.($date[5]%100).'-'.($date[4]+2).'-'.$day%date("t");
 
-          echo  '<th>'.Planning::plannedRecipe($date_p,$h+1,$login).'</th>';
+        $day = $week_start+$d; // date du jour de la cellule actuelle du tableau
+
+        if( $day > cal_days_in_month(CAL_GREGORIAN,$month_start, date("Y"))) // si on dépasse le nombre de jours du mois effectif en début de semaine
+        {
+            $date_p = '20'.($date[5]%100).'-'.($date[4]+1).'-'.($day%cal_days_in_month(CAL_GREGORIAN,$month_start, date("Y")));
+            echo  '<th>'.Planning::plannedRecipe($date_p,$h+1,$login).'</th>';         
         }
         else
         {
-          $date_p = '20'.($date[5]%100).'-'.($date[4]+1).'-'.$day;
+          $date_p = '20'.($date[5]%100).'-'.($date[4]).'-'.$day;
           echo  '<th>'.Planning::plannedRecipe($date_p,$h+1,$login).'</th>';
         }  
       }

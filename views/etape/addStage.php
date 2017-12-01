@@ -15,7 +15,7 @@ $allYourRecipes = $user->getRecipes();
   			</select>
 	</div>
 	<div class="formline">
-		<label>Ordre</label>
+		<label>Order</label>
 			<input type="number" name="Ordre">
 	</div>
 
