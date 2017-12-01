@@ -123,11 +123,27 @@ public function __construct()
 
 	public function manageRecipe()
 	{
-		include 'views/user/manageRecipe.php';
+		include 'views/recipe/manageRecipe.php';
+	}
+
+	public function editRecipe()
+	{
+		switch($_SERVER['REQUEST_METHOD']) {
+			case 'POST':
+				break;
+			case 'GET':
+				include 'views/recipe/editRecipe.php';
+				break;
+		}
 	}
 
 	public function manageIngredient()
 	{
 		include 'views/user/manageIngredient.php';
+	}
+
+	public function editIngredient()
+	{
+		
 	}
 }

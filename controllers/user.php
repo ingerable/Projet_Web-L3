@@ -111,17 +111,20 @@ class Controller_User
 						{
 							message('success', 'User successfully deleted');
 							header('Location: '.BASEURL.'/index.php/user/manageUser');
+							exit;
 						}
 						else
 						{
 							message('error', 'Error while deleting user');
 							header('Location: '.BASEURL.'/index.php/user/manageUser');
+							exit;
 						}
 					}
 					else
 					{
 						message('error', 'Cannot delete root !');
 						header('Location: '.BASEURL.'/index.php/user/manageUser');
+						exit;
 					}
 				}
 				else
@@ -138,17 +141,20 @@ class Controller_User
 							$u->save();
 							message('success', 'Informations changed');
 							header('Location: '.BASEURL.'/index.php/user/manageUser');
+							exit;
 						}
 						else
 						{
 							message('error', 'Passwords dont match');
 							header('Location: '.BASEURL.'/index.php/user/editUser?login='.$_POST['login']);
+							exit;
 						}
 					}
 					else
 					{
 						message('error', 'Complete all fields');
 						header('Location: '.BASEURL.'/index.php/user/editUser?login='.$_POST['login']);
+						exit;
 					}
 				}
 				break;
