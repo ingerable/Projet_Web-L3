@@ -1,15 +1,15 @@
 <?php
 	$user =  get_connected_user();
-	$allIngredients = $user->getIngredients();
+	$allIngredients = ingredient::get_all_names();
 
 
 if($_SERVER['REQUEST_METHOD']=='GET')
 	{?>
 
-	<h1 class="text-center"> Search recipes with your ingredients</h1>
+	<h1 class="text-center"> Search recipes by ingredients</h1>
 	<form action="<?=BASEURL?>/index.php/recipe/searchRecipeIngredients" method="POST">
 		<div>
-			<h3 class="formline"> Yours ingredients </h3>
+			<h3 class="formline"> Ingredients </h3>
 			 	<select name="selectedIngredients[]"  multiple="multiple" class="recipeIngredientSearch">
 			 	<?php 
 				foreach ($allIngredients as $key => $ing) 

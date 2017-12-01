@@ -289,6 +289,7 @@ class recipe extends Model_Base
 	//renvoie toutes les recettes contenant les ingrédients en arguments 1 et la méthode pour trier les résultats en argument 2
 	public static function get_recipes_contains($ingredients, $sort)
 	{
+
 		$p = array(); // liste de recettes
 		$ingredients = array_values($ingredients)[0]; // on reçoit un tableau de tableau des ingrédients, on garde juste le tableau associative des ingrédients
 		$q = self::$_db->prepare('SELECT * FROM recette where autoIdRecette IN 

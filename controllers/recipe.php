@@ -45,7 +45,7 @@ public function __construct()
 			case 'POST':
 			if(user_connected())
 			{
-				if (check_post_values(array('nomRecette', 'nbrPersonnes', 'illustration', 'difficulte',  'descriptif'))) 
+				if (check_post_values(array('nomRecette', 'nbrPersonnes','illustration','difficulte','descriptif')) && empty_post_values(array('nomRecette', 'nbrPersonnes'))) 
 				{
 					//récupère nom auteur
 					$u = get_connected_user();
@@ -67,6 +67,13 @@ public function __construct()
 					// on redirige l'utilisateur vers la page lui permettant de créer les ingrédients et étapes
 					message('success', $r->nomRecette().' successfully created, now you can add ingredients
 						and stages');
+				}
+				else
+				{
+					message('error', 'Fill atleast the name and the number of persons');
+					header('Location: '.BASEURL.'/index.php/recipe/createRecipe');
+					exit;
+					break;
 				}
 			}
 			else

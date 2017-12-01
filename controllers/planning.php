@@ -26,17 +26,22 @@ public function addOrDelete()
 				* la date doit correspondre au format attendue pour la BDD (YYYY-MM-DD)
 				*/
 				$localdate=localtime();
-				$selectedDay = $_POST['day']+$localdate[3]-$localdate[6]; // jour selectionné dans le mois (jour de 1-7 + jour dans le mois - jour dans la semaine)			
+
+				//1er jour de la semaine
+				$day = date('w');
+				$week_start = date('d', strtotime('-'.$day.' days'));
+
+				$selectedDay = $week_start+$_POST['day']; // jour selectionné dans le mois (jour de 1-7 + jour dans le mois - jour dans la semaine)			
 
 				if( $selectedDay > date("t")) //si on dépasse le dernier jour du mois on passe au mois suivant 
 				{
 					//on fabrique la date à laquel l'utilisateur veut réaliser sa recette à partir des variables post
-					$date = '20'.($localdate[5]%100).'-'.($localdate[4]+2).'-'.$selectedDay%date("t");
+					$date = '20'.($localdate[5]%100).'-'.($localdate[4]+1).'-'.$selectedDay%date("t");
 				}
 				else
 				{
 					//on fabrique la date à laquel l'utilisateur veut réaliser sa recette à partir des variables post
-					$date = '20'.($localdate[5]%100).'-'.($localdate[4]+1).'-'.$selectedDay;	
+					$date = '20'.($localdate[5]%100).'-'.($localdate[4]).'-'.$selectedDay;	
 				}
 
 				
@@ -49,13 +54,22 @@ public function addOrDelete()
 				*/
 				if(isset($_POST['delete-submit']))
 				{
-					$values = unserialize(base64_decode($_POST['recetteDeleteValues']));
-					//on récupère l'objet recette
-					$rp = Planning::plannedRecipeObj($values[2],$values[3],get_connected_user()->login(),$values[0]);
-
-					if($rp!=null)
+					if(isset($_POST['recetteDeleteValues']))
 					{
-						$rp->delete();
+						$values = unserialize(base64_decode($_POST['recetteDeleteValues']));
+						//on récupère l'objet recette
+						$rp = Planning::plannedRecipeObj($values[2],$values[3],get_connected_user()->login(),$values[0]);
+
+						if($rp!=null)
+						{
+							$rp->delete();
+						}
+					}
+					else
+					{
+						message('error', 'No recipe selected for deletion');
+						header('Location: '.BASEURL.'/index.php/planning/addOrDelete');
+						exit;
 					}
 				}
 				else if(isset($_POST['add-submit']))
@@ -79,7 +93,6 @@ public function addOrDelete()
 					}
 
 					$endHour = $endHour.":00:00";
-
 					$p = Planning::create(array(
 							"dateRealisation"=>$date,
 							"autoIdRecette"=>$_POST['idRecette'],
