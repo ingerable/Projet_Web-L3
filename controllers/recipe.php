@@ -1,3 +1,5 @@
+
+
 <?php
 
 require_once 'models/recipe.php';
@@ -174,9 +176,9 @@ public function __construct()
 						$r->set_difficulte($_POST['difficulte']);
 						if(is_null($r->save()))
 						{
-							//message('error', 'Error while updating database');
-							//header('Location: '.BASEURL.'/index.php/recipe/manageRecipe');
-							//exit;
+							message('error', 'Error while updating database');
+							header('Location: '.BASEURL.'/index.php/recipe/manageRecipe');
+							exit;
 						}
 						else
 						{
@@ -201,7 +203,7 @@ public function __construct()
 
 	public function manageIngredient()
 	{
-		include 'views/user/manageIngredient.php';
+		include 'views/recipe/manageIngredient.php';
 	}
 
 	public function editIngredient()

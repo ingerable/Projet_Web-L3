@@ -328,12 +328,10 @@ class recipe extends Model_Base
 					
 			if($q->execute())
 			{
-				var_dump('sql query sucess !');
+				return 0;
 			}
 			else
 			{
-				echo "\nPDO::errorInfo():\n" ;
-   				print_r($q->errorInfo());
 				return NULL;
 			}
 		}
