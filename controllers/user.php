@@ -90,11 +90,19 @@ class Controller_User
 
 	public function manageUser()
 	{
+		if(!root_connected())
+		{	
+			header('Location: '.BASEURL);
+		}
 		include 'views/user/manageUser.php';
 	}
 
 	public function editUser()
 	{
+		if(!root_connected())
+		{	
+			header('Location: '.BASEURL);
+		}
 		switch($_SERVER['REQUEST_METHOD']) {
 			case 'POST':
 				if(isset($_POST['cancel']))

@@ -157,22 +157,50 @@ class Ingredient extends Model_Base
 		}
 	}
 
+	public static function get_all()
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM ingredient ORDER BY nomIngredient');
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
+			$p[] = new Ingredient($data);
+		}
+		return $p;
+	}
+
+	//renvoie tout les ingredients contenant le mot en argument
+	public static function get_Ingredient_Like($m, $sort)
+	{
+		$p = array();
+		$q = self::$_db->prepare('SELECT * FROM ingredient where nomIngredient LIKE :mot ORDER BY '.$sort.' DESC ;');
+		$q->bindValue(':mot', '%'.$m.'%', PDO::PARAM_STR);
+		$q->execute();
+		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
+			$p[] = new Ingredient($data);
+		}
+		return $p;
+	}
+
 	public function save()
 	{
 		if(!is_null($this->_nomIngredient)) 
 		{
-		$q = self::$_db->prepare('UPDATE ingredient SET nomIngredient = :ni, calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop, isGrammes = :gram 
-										 WHERE nomIngredient = :ni');
-		$q->bindValue(':ni', $u->nomIngredient(), PDO::PARAM_STR);
-		$q->bindValue(':c', $u->calories(), PDO::PARAM_STR);
-		$q->bindValue(':l', $u->Lipides(), PDO::PARAM_STR);
-		$q->bindValue(':g', $u->Glucides(), PDO::PARAM_STR);
-		$q->bindValue(':prot', $u->Proteines(), PDO::PARAM_STR);
-		$q->bindValue(':pop', $u->Popularite(), PDO::PARAM_STR);
-		$q->bindValue(':gram', $u->isGrammes(), PDO::PARAM_STR);
-		$q->execute();
-
-		return $u;
+			$q = self::$_db->prepare('UPDATE ingredient SET calories = :c, Lipides = :l, Glucides = :g, Proteines = :prot, Popularite = :pop, isGrammes = :gram WHERE nomIngredient = :ni');
+			$q->bindValue(':ni', $this->nomIngredient(), PDO::PARAM_STR);
+			$q->bindValue(':c', $this->calories(), PDO::PARAM_STR);
+			$q->bindValue(':l', $this->Lipides(), PDO::PARAM_STR);
+			$q->bindValue(':g', $this->Glucides(), PDO::PARAM_STR);
+			$q->bindValue(':prot', $this->Proteines(), PDO::PARAM_STR);
+			$q->bindValue(':pop', $this->Popularite(), PDO::PARAM_STR);
+			$q->bindValue(':gram', $this->isGrammes(), PDO::PARAM_STR);
+			if($q->execute())
+			{
+				return 0;
+			}
+			else
+			{
+				return NULL;
+			}
 		}
 	}
 
@@ -181,7 +209,7 @@ class Ingredient extends Model_Base
 	{
 		if(!is_null($this->_nomIngredient)) 
 		{
-			$q = self::$_db->prepare('DELETE FROM ingredient WHERE _nomIngredient = :ni');
+			$q = self::$_db->prepare('DELETE FROM ingredient WHERE nomIngredient = :ni');
 			$q->bindValue(':ni', $this->_nomIngredient);
 			$q->execute();
 			$this->_nomIngredient = null;

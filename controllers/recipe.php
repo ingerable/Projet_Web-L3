@@ -132,11 +132,19 @@ public function __construct()
 
 	public function manageRecipe()
 	{
+		if(!root_connected())
+		{	
+			header('Location: '.BASEURL);
+		}
 		include 'views/recipe/manageRecipe.php';
 	}
 
 	public function editRecipe()
 	{
+		if(!root_connected())
+		{	
+			header('Location: '.BASEURL);
+		}
 		switch($_SERVER['REQUEST_METHOD']) {
 			case 'POST':
 				if(isset($_POST['cancel']))
@@ -203,11 +211,85 @@ public function __construct()
 
 	public function manageIngredient()
 	{
+		if(!root_connected())
+		{	
+			header('Location: '.BASEURL);
+		}
 		include 'views/recipe/manageIngredient.php';
 	}
 
 	public function editIngredient()
 	{
-		
+		if(!root_connected())
+		{	
+			header('Location: '.BASEURL);
+		}
+		switch($_SERVER['REQUEST_METHOD']) {
+			case 'POST':
+				if(isset($_POST['cancel']))
+				{
+					header('Location: '.BASEURL.'/index.php/recipe/manageIngredient');
+				}
+				else if(isset($_POST['delete']))
+				{
+					$r=Ingredient::get_by_nomIngredient($_POST['nomIngredient']);
+					$r->delete();
+					if($r->nomIngredient()==null) // si delete ok
+					{
+						message('success', 'Ingredient successfully deleted');
+						header('Location: '.BASEURL.'/index.php/recipe/manageIngredient');
+						exit;
+					}
+					else
+					{
+						message('error', 'Error while deleting ingredient');
+						header('Location: '.BASEURL.'/index.php/recipe/manageIngredient');
+						exit;
+					}
+				}
+				else
+				{
+					if($_POST['calories']!='' && $_POST['proteines']!='' && $_POST['lipides']!='' && $_POST['glucides']!='' && $_POST['popularite']!='')
+					{
+						$r=Ingredient::get_by_nomIngredient($_POST['nomIngredient']);
+						$r->set_calories($_POST['calories']);
+						$r->set_Proteines($_POST['proteines']);
+						$r->set_Lipides($_POST['lipides']);
+						$r->set_Glucides($_POST['glucides']);
+						$r->set_Popularite($_POST['popularite']);
+						if(isset($_POST['isGrammes']))
+						{
+							$checked = 1;
+						}
+						else
+						{
+							$checked = 0;
+						}
+						$r->set_isGrammes($checked);
+						if(is_null($r->save()))
+						{
+							message('error', 'Error while updating database');
+							header('Location: '.BASEURL.'/index.php/recipe/manageIngredient');
+							exit;
+						}
+						else
+						{
+							message('success', 'Informations changed');
+							header('Location: '.BASEURL.'/index.php/recipe/manageIngredient');
+							exit;
+						}
+					}
+					else
+					{
+						message('error', 'Complete all fields');
+						header('Location: '.BASEURL.'/index.php/recipe/editIngredient?nomIngredient='.$_POST['nomIngredient']);
+						exit;
+					}
+				}
+				break;
+			case 'GET':
+				include 'views/recipe/editIngredient.php';
+				break;
+		}
 	}
 }

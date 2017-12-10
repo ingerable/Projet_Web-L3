@@ -190,17 +190,17 @@ CREATE TABLE planning(
         PRIMARY KEY (autoIdRecette ,login,dateRealisation )
 )ENGINE=InnoDB;
 
-ALTER TABLE recette ADD CONSTRAINT FK_recette_login FOREIGN KEY (login) REFERENCES Utilisateur(login);
-ALTER TABLE Etape ADD CONSTRAINT FK_Etape_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette);
-ALTER TABLE a_chez_lui ADD CONSTRAINT FK_a_chez_lui_login FOREIGN KEY (login) REFERENCES Utilisateur(login);
-ALTER TABLE a_chez_lui ADD CONSTRAINT FK_a_chez_lui_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient);
-ALTER TABLE appartient ADD CONSTRAINT FK_appartient_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient);
-ALTER TABLE appartient ADD CONSTRAINT FK_appartient_nomCategorie FOREIGN KEY (nomCategorie) REFERENCES categorie_ingredient(nomCategorie);
-ALTER TABLE doit_acheter ADD CONSTRAINT FK_doit_acheter_login FOREIGN KEY (login) REFERENCES Utilisateur(login);
-ALTER TABLE doit_acheter ADD CONSTRAINT FK_doit_acheter_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient);
-ALTER TABLE ne_suit_pas ADD CONSTRAINT FK_ne_suit_pas_nomRegime FOREIGN KEY (nomRegime) REFERENCES regime_alimentaire(nomRegime);
-ALTER TABLE ne_suit_pas ADD CONSTRAINT FK_ne_suit_pas_nomCategorie FOREIGN KEY (nomCategorie) REFERENCES categorie_ingredient(nomCategorie);
-ALTER TABLE contient ADD CONSTRAINT FK_contient_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette);
-ALTER TABLE contient ADD CONSTRAINT FK_contient_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient);
-ALTER TABLE planning ADD CONSTRAINT FK_planning_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette);
-ALTER TABLE planning ADD CONSTRAINT FK_planning_login FOREIGN KEY (login) REFERENCES Utilisateur(login);
+ALTER TABLE recette ADD CONSTRAINT FK_recette_login FOREIGN KEY (login) REFERENCES Utilisateur(login) ON DELETE CASCADE;
+ALTER TABLE Etape ADD CONSTRAINT FK_Etape_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette) ON DELETE CASCADE;
+ALTER TABLE a_chez_lui ADD CONSTRAINT FK_a_chez_lui_login FOREIGN KEY (login) REFERENCES Utilisateur(login) ON DELETE CASCADE;
+ALTER TABLE a_chez_lui ADD CONSTRAINT FK_a_chez_lui_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient) ON DELETE CASCADE;
+ALTER TABLE appartient ADD CONSTRAINT FK_appartient_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient) ON DELETE CASCADE;
+ALTER TABLE appartient ADD CONSTRAINT FK_appartient_nomCategorie FOREIGN KEY (nomCategorie) REFERENCES categorie_ingredient(nomCategorie) ON DELETE CASCADE;
+ALTER TABLE doit_acheter ADD CONSTRAINT FK_doit_acheter_login FOREIGN KEY (login) REFERENCES Utilisateur(login) ON DELETE CASCADE;
+ALTER TABLE doit_acheter ADD CONSTRAINT FK_doit_acheter_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient) ON DELETE CASCADE;
+ALTER TABLE ne_suit_pas ADD CONSTRAINT FK_ne_suit_pas_nomRegime FOREIGN KEY (nomRegime) REFERENCES regime_alimentaire(nomRegime) ON DELETE CASCADE;
+ALTER TABLE ne_suit_pas ADD CONSTRAINT FK_ne_suit_pas_nomCategorie FOREIGN KEY (nomCategorie) REFERENCES categorie_ingredient(nomCategorie) ON DELETE CASCADE;
+ALTER TABLE contient ADD CONSTRAINT FK_contient_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette) ON DELETE CASCADE;
+ALTER TABLE contient ADD CONSTRAINT FK_contient_nomIngredient FOREIGN KEY (nomIngredient) REFERENCES ingredient(nomIngredient) ON DELETE CASCADE;
+ALTER TABLE planning ADD CONSTRAINT FK_planning_autoIdRecette FOREIGN KEY (autoIdRecette) REFERENCES recette(autoIdRecette) ON DELETE CASCADE;
+ALTER TABLE planning ADD CONSTRAINT FK_planning_login FOREIGN KEY (login) REFERENCES Utilisateur(login) ON DELETE CASCADE;
