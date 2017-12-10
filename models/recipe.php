@@ -142,7 +142,7 @@ class recipe extends Model_Base
 	}
 	public function set_difficulte($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_difficulte = $l;
 		}
 	}
@@ -174,7 +174,8 @@ class recipe extends Model_Base
 	}
 	public function set_calories($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l))
+		{
 			$this->_calories = $l;
 		}
 	}
@@ -185,7 +186,7 @@ class recipe extends Model_Base
 	}
 	public function set_note($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_note = $l;
 		}
 	}
@@ -196,7 +197,7 @@ class recipe extends Model_Base
 	}
 	public function set_nbrPersonnes($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_nbrPersonnes = $l;
 		}
 	}
@@ -207,7 +208,7 @@ class recipe extends Model_Base
 	}
 	public function set_lipides($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_lipides = $l;
 		}
 	}
@@ -218,7 +219,7 @@ class recipe extends Model_Base
 	}
 	public function set_Glucides($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_Glucides = $l;
 		}
 	}
@@ -229,7 +230,7 @@ class recipe extends Model_Base
 	}
 	public function set_Proteines($l)
 	{
-		if(is_string($l)) {
+		if(is_numeric($l)) {
 			$this->_Proteines = $l;
 		}
 	}
@@ -240,9 +241,7 @@ class recipe extends Model_Base
 	}
 	public function set_duree($l)
 	{
-		if(is_string($l)) {
 			$this->_duree = $l;
-		}
 	}
 
 

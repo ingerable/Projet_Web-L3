@@ -44,11 +44,6 @@ public function addOrDelete()
 					$date = '20'.($localdate[5]%100).'-'.($localdate[4]).'-'.$selectedDay;	
 				}
 
-				
-				//on mets en forme pour la suppresion/insertion
-				$startHour = $_POST['hour'].":00:00";
-				
-
 				/*
 				* Maintenant on va vérifier si on veut supprimer la recette ou l'ajouter
 				*/
@@ -92,13 +87,49 @@ public function addOrDelete()
 						$endHour = $_POST['hour']+floor($length/60);
 					}
 
-					$endHour = $endHour.":00:00";
-					$p = Planning::create(array(
-							"dateRealisation"=>$date,
-							"autoIdRecette"=>$_POST['idRecette'],
-							"login"=>(get_connected_user()->login()),
-							"startHour"=>$startHour,
-							"endHour"=>$endHour));
+					//nombre d'heures ou il faut vérifier qu'il n'y ait pas de recette déja existante
+					$loopCounter = $endHour-$_POST['hour'];
+
+					//indique si il y à une recette déja existant
+					$exist = 0;
+					
+
+					// on vérifie qu'il n'y ait pas de recette déja prévue sur la plage horaire
+					for ($i=$_POST['hour']; $i < $_POST['hour']+$loopCounter; $i++) 
+					{ 
+						if(Planning::plannedRecipe($date,$i, (get_connected_user()->login()))=="")
+						{
+							
+						}
+						else
+						{
+								$exist=1;
+						}	
+					}
+
+					// on insert la recette si la plage est libre sinon on prévient l'utilisateur
+					if($exist==1)
+					{
+						message('error', 'There is already a recipe planned at this date');
+						header('Location: '.BASEURL.'/index.php/planning/addOrDelete');
+						exit;
+					}
+					else
+					{
+						//on mets en forme pour la suppresion/insertion
+							$startHour = $_POST['hour'].":00:00";
+							$endHour = $endHour.":00:00";
+
+							$p = Planning::create(array(
+								"dateRealisation"=>$date,
+								"autoIdRecette"=>$_POST['idRecette'],
+								"login"=>(get_connected_user()->login()),
+								"startHour"=>$startHour,
+								"endHour"=>$endHour));
+					}
+					
+					
+					
 				}	
 		}
 		else

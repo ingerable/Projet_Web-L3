@@ -29,10 +29,10 @@ echo '<article class="h-recipe">
 '.$recipe->descriptif().'
 <h2> Caracteristics </h2>
 	<ul>
-		<li>Lipides :'.$recipe->lipides().'</li>
-		<li>Glucides :'.$recipe->glucides().'</li>
-		<li>Proteines :'.$recipe->proteines().'</li>
-		<li>Calories :'.$recipe->calories().'</li>
+		<li>Lipides :'.$recipe->lipides().' grammes</li>
+		<li>Glucides :'.$recipe->glucides().' grammes</li>
+		<li>Proteines :'.$recipe->proteines().' grammes</li>
+		<li>Calories :'.$recipe->calories().' </li>
 	</ul>';
 
  
