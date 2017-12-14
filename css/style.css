@@ -21,7 +21,7 @@ body {
 }
 
 header {
-	background-color: rgb(200,240,200);
+	background-color: rgb(204,255,255);
 	text-align: center;
 	border-bottom: 1px solid black;
 }
@@ -78,7 +78,7 @@ main {
 }
 
 footer {
-	background-color: rgb(200,240,200);
+	background-color: rgb(153,255,255);
 	padding: 20px;
 	font-size: 1.2rem;
 	text-align: center;
