@@ -132,7 +132,7 @@ class Planning extends model_base
 			}
 		}
 	}
-
+	
 	public static function plannedRecipeObj($date,$hour, $login, $autoIdRecette)
 	{
 		$q = self::$_db->prepare('SELECT * from planning where DATE(dateRealisation) = :dr AND login = :l AND startHour = :sh AND autoIdRecette = :air ;');
@@ -144,6 +144,20 @@ class Planning extends model_base
 		if($data = $q->fetch(PDO::FETCH_ASSOC)) 
 		{
 			return new Planning($data);
+		}
+	}
+
+	public static function isSameDay($date, $autoIdRecette,$login)
+	{
+		$q = self::$_db->prepare('SELECT count(autoIdRecette) from planning where DATE(dateRealisation) = :dr AND login = :l AND autoIdRecette = :air;');
+		$q->bindValue(':dr', $date, PDO::PARAM_STR);
+		$q->bindValue(':l', $login, PDO::PARAM_STR);
+		$q->bindValue(':air', $autoIdRecette, PDO::PARAM_STR);
+		$q->execute();
+		if($data = $q->fetch(PDO::FETCH_ASSOC)) 
+		{
+			var_dump($data['count(autoIdRecette)']);
+			return $data['count(autoIdRecette)'];
 		}
 	}
 

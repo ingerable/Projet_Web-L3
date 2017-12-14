@@ -114,6 +114,12 @@ public function addOrDelete()
 						header('Location: '.BASEURL.'/index.php/planning/addOrDelete');
 						exit;
 					}
+					else if(Planning::isSameDay($date,$_POST['idRecette'],get_connected_user()->login())>0)
+					{
+						message('error', 'You cannot do the same recipe in a day');
+						header('Location: '.BASEURL.'/index.php/planning/addOrDelete');
+						exit;
+					}
 					else
 					{
 						//on mets en forme pour la suppresion/insertion
@@ -127,9 +133,6 @@ public function addOrDelete()
 								"startHour"=>$startHour,
 								"endHour"=>$endHour));
 					}
-					
-					
-					
 				}	
 		}
 		else
