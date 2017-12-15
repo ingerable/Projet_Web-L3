@@ -80,7 +80,7 @@ class recipe extends Model_Base
 	public function sumStagesTime()
 	{
 		$recipeTime;
-		$q = self::$_db->prepare('SELECT sum(temps) FROM etape where autoIdRecette = :air');
+		$q = self::$_db->prepare('SELECT sum(temps) FROM Etape where autoIdRecette = :air');
 		$q->bindValue(':air', $this->_autoIdRecette, PDO::PARAM_INT);
 		if($q->execute())
 		{
@@ -262,7 +262,7 @@ class recipe extends Model_Base
 	public function allEtapes()
 	{
 		$p = array();
-		$q = self::$_db->prepare('SELECT * FROM etape where autoIdRecette = :idR');
+		$q = self::$_db->prepare('SELECT * FROM Etape where autoIdRecette = :idR');
 		$q->bindValue(':idR', $this->_autoIdRecette, PDO::PARAM_STR);
 		$q->execute();
 		while($data = $q->fetch(PDO::FETCH_ASSOC)) {
