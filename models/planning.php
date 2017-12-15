@@ -156,7 +156,6 @@ class Planning extends model_base
 		$q->execute();
 		if($data = $q->fetch(PDO::FETCH_ASSOC)) 
 		{
-			var_dump($data['count(autoIdRecette)']);
 			return $data['count(autoIdRecette)'];
 		}
 	}
