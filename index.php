@@ -6,7 +6,6 @@ require_once 'global/utils.php';
 require_once 'models/model_base.php';
 
 $db = new PDO(SQL_DSN, SQL_USERNAME, SQL_PASSWORD);
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 Model_Base::set_db($db);
 

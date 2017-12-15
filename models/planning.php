@@ -1,8 +1,5 @@
 <?php
 
-/**
-* 
-*/
 class Planning extends model_base
 {
 	private $_dateRealisation;
@@ -161,3 +158,4 @@ class Planning extends model_base
 	}
 
 }
+

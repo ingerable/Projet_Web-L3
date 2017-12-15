@@ -23,7 +23,7 @@ class Etape extends Model_Base
 	{
 		$u = new Etape($data);
 
-		$q = self::$_db->prepare('INSERT INTO etape SET Ordre = :o, temps = :t, illustration = :i, description_etape = :de, autoIdRecette = :air');
+		$q = self::$_db->prepare('INSERT INTO Etape SET Ordre = :o, temps = :t, illustration = :i, description_etape = :de, autoIdRecette = :air');
 		$q->bindValue(':o', $u->Ordre(), PDO::PARAM_STR);
 		$q->bindValue(':t', $u->temps(), PDO::PARAM_STR);
 		$q->bindValue(':i', $u->illustration(), PDO::PARAM_STR);
@@ -49,7 +49,7 @@ class Etape extends Model_Base
 	{
 		if(is_numeric($idRecette) && is_numeric($ordre))
 		{
-			$q = self::$_db->prepare('SELECT * FROM etape WHERE autoIdRecette = :air AND Ordre = :o');
+			$q = self::$_db->prepare('SELECT * FROM Etape WHERE autoIdRecette = :air AND Ordre = :o');
 			$q->bindValue(':air', $idRecette, PDO::PARAM_STR);
 			$q->bindValue(':o', $ordre, PDO::PARAM_STR);
 			$q->execute();
@@ -127,7 +127,7 @@ class Etape extends Model_Base
 		public function save()
 	{
 		if(!is_null($this->_autoIdRecette) && !is_null($this->_Ordre) ) {
-		$q = self::$_db->prepare('UPDATE etape SET Ordre = :o, temps = :t, illustration = :i, description_etape = :de, autoIdRecette = :air');
+		$q = self::$_db->prepare('UPDATE Etape SET Ordre = :o, temps = :t, illustration = :i, description_etape = :de, autoIdRecette = :air');
 		$q->bindValue(':o', $u->Ordre(), PDO::PARAM_STR);
 		$q->bindValue(':t', $u->temps(), PDO::PARAM_STR);
 		$q->bindValue(':i', $u->illustration(), PDO::PARAM_STR);
@@ -144,7 +144,7 @@ class Etape extends Model_Base
 	public function delete()
 	{
 		if(!is_null($this->_autoIdRecette) && !is_null($this->_Ordre) ) {
-			$q = self::$_db->prepare('DELETE FROM etape WHERE Ordre = :o AND autoIdRecette = :air');
+			$q = self::$_db->prepare('DELETE FROM Etape WHERE Ordre = :o AND autoIdRecette = :air');
 			$q->bindValue(':o', $this->_Ordre);
 			$q->bindValue(':air', $this->_autoIdRecette);
 			$q->execute();
