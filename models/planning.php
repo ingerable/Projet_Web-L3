@@ -1,8 +1,5 @@
 <?php
 
-/**
-* 
-*/
 class Planning extends model_base
 {
 	private $_dateRealisation;
@@ -19,7 +16,7 @@ class Planning extends model_base
 	public static function create(array $data)
 	{
 		$p = new Planning($data);
-		$q = self::$_db->prepare('INSERT INTO planning SET dateRealisation = :d, autoIdRecette=:air, login = :l , startHour = :sh, endHour = :eh;');
+		$q = self::$_db->prepare('INSERT INTO Planning SET dateRealisation = :d, autoIdRecette=:air, login = :l , startHour = :sh, endHour = :eh;');
 		$q->bindValue(':l', $p->login(), PDO::PARAM_STR);
 		$q->bindValue(':d', $p->dateRealisation(), PDO::PARAM_STR);
 		$q->bindValue(':air', $p->autoIdRecette(), PDO::PARAM_STR);
@@ -161,3 +158,4 @@ class Planning extends model_base
 	}
 
 }
+
